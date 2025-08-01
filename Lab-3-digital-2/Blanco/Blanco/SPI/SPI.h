@@ -5,49 +5,31 @@
  *  Author: Chris Q
  */ 
 
+#ifndef SPI_H
+#define SPI_H
 
+#include <avr/io.h>
+#include <stdint.h>
 
+// Modos de operación
+#define SPI_SLAVE 0
+#define SPI_MASTER 1
 
+// Orden de bits
+#define SPI_MSB_FIRST 0
+#define SPI_LSB_FIRST 1
 
-#ifndef SPI_H_
-#define SPI_H_
-	
-#include <avr/io.h>			// Se incluye la libreria para poder utilizar los puertos del microcontrolador
-#include <stdint.h>			// Declara conjuntos de tipos enteros que tienen anchuras especificadas
+// Polaridad de reloj
+#define SPI_CLOCK_IDLE_LOW 0
+#define SPI_CLOCK_IDLE_HIGH 1
 
-typedef enum
-{
-	SPI_MASTER_OSC_DIV2	= 0b01010000,
-	SPI_MASTER_OSC_DIV4	= 0b01010001,
-	SPI_MASTER_OSC_DIV8	= 0b01010010,
-	SPI_MASTER_OSC_DIV16 = 0b01010011,	
-	SPI_MASTER_OSC_DIV32 = 0b01010100,
-	SPI_MASTER_OSC_DIV64 = 0b01010101,
-	SPI_MASTER_OSC_DIV128 = 0b01010110,
-	SPI_SLAVE_SS	= 0b01000000
-}Spi_Type;
+// Fase de reloj
+#define SPI_SAMPLE_ON_LEADING 0
+#define SPI_SAMPLE_ON_TRAILING 1
 
-typedef enum
-{
-	SPI_DATA_ORDER_MSB = 0b00000000,
-	SPI_DATA_ORDER_LSB = 0b00100000
-}Spi_Data_Order;
+void SPI_init(uint8_t mode, uint8_t data_order, uint8_t clock_polarity, uint8_t clock_phase);
+void SPI_enable_interrupt(void);
+uint8_t SPI_receive(void);
+void SPI_transmit(uint8_t data);
 
-typedef enum
-{
-	SPI_CLOCK_IDLE_HIGH = 0b00001000,
-	SPI_CLOCK_IDLE_LOW  = 0b00000000
-}Spi_Clock_Polarity;
-
-typedef enum
-{
-	SPI_CLOCK_FIRST_EDGE = 0b00000000,
-	SPI_CLOCK_LAST_EDGE = 0b00000100
-}Spi_Clock_Phase;
-
-void spiInit(Spi_Type, Spi_Data_Order, Spi_Clock_Polarity, Spi_Clock_Phase);
-void spiWrite(uint8_t dat);
-unsigned spiDataReady();
-uint8_t spiRead(void);
-
-#endif /* SPI_H_ */
+#endif

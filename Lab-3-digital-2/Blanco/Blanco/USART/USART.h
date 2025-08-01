@@ -6,21 +6,15 @@
  */ 
 
 
-
-
-#ifndef USART_H_
-#define USART_H_
+#ifndef USART_H
+#define USART_H
 
 #include <avr/io.h>
 #include <stdint.h>
 
 void initUART9600(void);
-
-void writeUART(char caractrer);
-
-void writeTextUART(char* texto);
-
+void writeUART(char character);
+void writeTextUART(char* text);
 unsigned char read_UART(void);
 
-
-#endif /* USART_H_ */
+#endif

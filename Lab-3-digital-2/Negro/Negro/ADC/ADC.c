@@ -6,27 +6,19 @@
  */ 
 
 
-
 #include "ADC.h"
-#include <avr/io.h>
 
-void ADC_init(void)
-{
-	ADMUX |= (1<<REFS0);	//Seleccionar el voltaje de referencia
-	ADMUX &= ~(1<<REFS1);
-	ADMUX &= ~(1<<ADLAR);	// Se define que se trabajara con 10 bits
-	
-	// Configuraci?n Prescaler de 128 --> 16M/128 = 125KHz
-	ADCSRA |= (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
-	ADCSRA |= (1<<ADEN);	// Se enceinde el ADC y se activa su interruptor de igual forma
-	
-	//Entradas para los potenciometros
-	DIDR0 |= (1 << ADC2D);		// Desabilitar la entrada digital PC2
-	DIDR0 |= (1 << ADC3D);		// Desabilitar la entrada digital PC3
+void ADC_init(void) {
+	ADMUX = (1 << REFS0);               // AVcc como referencia
+	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // Prescaler 128
+	DIDR0 = (1 << ADC2D) | (1 << ADC3D); // Deshabilitar entradas digitales
 }
-uint16_t ADC_read(uint8_t canal){
-	ADMUX = (ADMUX & 0xF0)|canal;			//Seleccionar el canal del ADC
-	ADCSRA |= (1<<ADSC);					// Se inicia la conversi?n de lo valores
-	while((ADCSRA)&(1<<ADSC));				//Se espera hasta que la conversi?n se haya completado
-	return(ADC);							//Regresa el valor de ADC
+
+uint16_t ADC_read(uint8_t channel) {
+	ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);
+	ADCSRA |= (1 << ADSC);
+	while(ADCSRA & (1 << ADSC));
+	uint8_t low = ADCL;  // Leer ADCL primero!
+	uint8_t high = ADCH;
+	return (high << 8) | low;
 }

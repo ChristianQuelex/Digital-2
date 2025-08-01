@@ -1,0 +1,508 @@
+
+Negro.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000032c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000002b8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000001  00800100  00800100  0000032c  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000032c  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000035c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000a0  00000000  00000000  0000039c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000b5c  00000000  00000000  0000043c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000880  00000000  00000000  00000f98  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000005bf  00000000  00000000  00001818  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000014c  00000000  00000000  00001dd8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000004a5  00000000  00000000  00001f24  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000311  00000000  00000000  000023c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000070  00000000  00000000  000026da  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 e9 00 	jmp	0x1d2	; 0x1d2 <__vector_17>
+  48:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  4c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	21 e0       	ldi	r18, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a1 30       	cpi	r26, 0x01	; 1
+  80:	b2 07       	cpc	r27, r18
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 dd 00 	call	0x1ba	; 0x1ba <main>
+  88:	0c 94 5a 01 	jmp	0x2b4	; 0x2b4 <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <ADC_init>:
+
+
+#include "ADC.h"
+
+void ADC_init(void) {
+	ADMUX = (1 << REFS0);               // AVcc como referencia
+  90:	80 e4       	ldi	r24, 0x40	; 64
+  92:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
+	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // Prescaler 128
+  96:	87 e8       	ldi	r24, 0x87	; 135
+  98:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+	DIDR0 = (1 << ADC2D) | (1 << ADC3D); // Deshabilitar entradas digitales
+  9c:	8c e0       	ldi	r24, 0x0C	; 12
+  9e:	80 93 7e 00 	sts	0x007E, r24	; 0x80007e <__TEXT_REGION_LENGTH__+0x7f807e>
+  a2:	08 95       	ret
+
+000000a4 <ADC_read>:
+}
+
+uint16_t ADC_read(uint8_t channel) {
+	ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);
+  a4:	ec e7       	ldi	r30, 0x7C	; 124
+  a6:	f0 e0       	ldi	r31, 0x00	; 0
+  a8:	90 81       	ld	r25, Z
+  aa:	90 7f       	andi	r25, 0xF0	; 240
+  ac:	8f 70       	andi	r24, 0x0F	; 15
+  ae:	89 2b       	or	r24, r25
+  b0:	80 83       	st	Z, r24
+	ADCSRA |= (1 << ADSC);
+  b2:	ea e7       	ldi	r30, 0x7A	; 122
+  b4:	f0 e0       	ldi	r31, 0x00	; 0
+  b6:	80 81       	ld	r24, Z
+  b8:	80 64       	ori	r24, 0x40	; 64
+  ba:	80 83       	st	Z, r24
+	while(ADCSRA & (1 << ADSC));
+  bc:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+  c0:	86 fd       	sbrc	r24, 6
+  c2:	fc cf       	rjmp	.-8      	; 0xbc <ADC_read+0x18>
+	uint8_t low = ADCL;  // Leer ADCL primero!
+  c4:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7f8078>
+	uint8_t high = ADCH;
+  c8:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7f8079>
+	return (high << 8) | low;
+  cc:	90 e0       	ldi	r25, 0x00	; 0
+  ce:	98 2f       	mov	r25, r24
+  d0:	88 27       	eor	r24, r24
+  d2:	82 2b       	or	r24, r18
+  d4:	08 95       	ret
+
+000000d6 <refreshLEDs>:
+	
+	testHardware();
+}
+
+void refreshLEDs(uint8_t value) {
+	PORTB = (PORTB & 0xFC) | ((value >> 6) & 0x03);
+  d6:	95 b1       	in	r25, 0x05	; 5
+  d8:	9c 7f       	andi	r25, 0xFC	; 252
+  da:	28 2f       	mov	r18, r24
+  dc:	22 95       	swap	r18
+  de:	26 95       	lsr	r18
+  e0:	26 95       	lsr	r18
+  e2:	23 70       	andi	r18, 0x03	; 3
+  e4:	92 2b       	or	r25, r18
+  e6:	95 b9       	out	0x05, r25	; 5
+	PORTD = (value << 2) & 0xFC;
+  e8:	90 e0       	ldi	r25, 0x00	; 0
+  ea:	88 0f       	add	r24, r24
+  ec:	99 1f       	adc	r25, r25
+  ee:	88 0f       	add	r24, r24
+  f0:	99 1f       	adc	r25, r25
+  f2:	8b b9       	out	0x0b, r24	; 11
+  f4:	08 95       	ret
+
+000000f6 <testHardware>:
+}
+
+void testHardware(void) {
+  f6:	cf 92       	push	r12
+  f8:	df 92       	push	r13
+  fa:	ef 92       	push	r14
+  fc:	ff 92       	push	r15
+	// Test de LEDs
+	for(uint8_t i=0; i<3; i++) {
+  fe:	90 e0       	ldi	r25, 0x00	; 0
+ 100:	1f c0       	rjmp	.+62     	; 0x140 <testHardware+0x4a>
+		PORTB |= 0x03; PORTD |= 0xFC;
+ 102:	85 b1       	in	r24, 0x05	; 5
+ 104:	83 60       	ori	r24, 0x03	; 3
+ 106:	85 b9       	out	0x05, r24	; 5
+ 108:	8b b1       	in	r24, 0x0b	; 11
+ 10a:	8c 6f       	ori	r24, 0xFC	; 252
+ 10c:	8b b9       	out	0x0b, r24	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 10e:	2f ef       	ldi	r18, 0xFF	; 255
+ 110:	39 e6       	ldi	r19, 0x69	; 105
+ 112:	88 e1       	ldi	r24, 0x18	; 24
+ 114:	21 50       	subi	r18, 0x01	; 1
+ 116:	30 40       	sbci	r19, 0x00	; 0
+ 118:	80 40       	sbci	r24, 0x00	; 0
+ 11a:	e1 f7       	brne	.-8      	; 0x114 <testHardware+0x1e>
+ 11c:	00 c0       	rjmp	.+0      	; 0x11e <testHardware+0x28>
+ 11e:	00 00       	nop
+		_delay_ms(500);
+		PORTB &= ~0x03; PORTD &= ~0xFC;
+ 120:	85 b1       	in	r24, 0x05	; 5
+ 122:	8c 7f       	andi	r24, 0xFC	; 252
+ 124:	85 b9       	out	0x05, r24	; 5
+ 126:	8b b1       	in	r24, 0x0b	; 11
+ 128:	83 70       	andi	r24, 0x03	; 3
+ 12a:	8b b9       	out	0x0b, r24	; 11
+ 12c:	2f ef       	ldi	r18, 0xFF	; 255
+ 12e:	39 e6       	ldi	r19, 0x69	; 105
+ 130:	88 e1       	ldi	r24, 0x18	; 24
+ 132:	21 50       	subi	r18, 0x01	; 1
+ 134:	30 40       	sbci	r19, 0x00	; 0
+ 136:	80 40       	sbci	r24, 0x00	; 0
+ 138:	e1 f7       	brne	.-8      	; 0x132 <testHardware+0x3c>
+ 13a:	00 c0       	rjmp	.+0      	; 0x13c <testHardware+0x46>
+ 13c:	00 00       	nop
+	PORTD = (value << 2) & 0xFC;
+}
+
+void testHardware(void) {
+	// Test de LEDs
+	for(uint8_t i=0; i<3; i++) {
+ 13e:	9f 5f       	subi	r25, 0xFF	; 255
+ 140:	93 30       	cpi	r25, 0x03	; 3
+ 142:	f8 f2       	brcs	.-66     	; 0x102 <testHardware+0xc>
+ 144:	c1 2c       	mov	r12, r1
+ 146:	d1 2c       	mov	r13, r1
+ 148:	76 01       	movw	r14, r12
+ 14a:	17 c0       	rjmp	.+46     	; 0x17a <testHardware+0x84>
+	
+	// Test de ADC
+	uint16_t val;
+	uint32_t start = 0;
+	while(start < 3000) {
+		val = ADC_read(2);
+ 14c:	82 e0       	ldi	r24, 0x02	; 2
+ 14e:	0e 94 52 00 	call	0xa4	; 0xa4 <ADC_read>
+		refreshLEDs(val >> 2);
+ 152:	96 95       	lsr	r25
+ 154:	87 95       	ror	r24
+ 156:	96 95       	lsr	r25
+ 158:	87 95       	ror	r24
+ 15a:	0e 94 6b 00 	call	0xd6	; 0xd6 <refreshLEDs>
+ 15e:	9f ef       	ldi	r25, 0xFF	; 255
+ 160:	21 ee       	ldi	r18, 0xE1	; 225
+ 162:	34 e0       	ldi	r19, 0x04	; 4
+ 164:	91 50       	subi	r25, 0x01	; 1
+ 166:	20 40       	sbci	r18, 0x00	; 0
+ 168:	30 40       	sbci	r19, 0x00	; 0
+ 16a:	e1 f7       	brne	.-8      	; 0x164 <testHardware+0x6e>
+ 16c:	00 c0       	rjmp	.+0      	; 0x16e <testHardware+0x78>
+ 16e:	00 00       	nop
+		_delay_ms(100);
+		start += 100;
+ 170:	84 e6       	ldi	r24, 0x64	; 100
+ 172:	c8 0e       	add	r12, r24
+ 174:	d1 1c       	adc	r13, r1
+ 176:	e1 1c       	adc	r14, r1
+ 178:	f1 1c       	adc	r15, r1
+	}
+	
+	// Test de ADC
+	uint16_t val;
+	uint32_t start = 0;
+	while(start < 3000) {
+ 17a:	98 eb       	ldi	r25, 0xB8	; 184
+ 17c:	c9 16       	cp	r12, r25
+ 17e:	9b e0       	ldi	r25, 0x0B	; 11
+ 180:	d9 06       	cpc	r13, r25
+ 182:	e1 04       	cpc	r14, r1
+ 184:	f1 04       	cpc	r15, r1
+ 186:	10 f3       	brcs	.-60     	; 0x14c <testHardware+0x56>
+		val = ADC_read(2);
+		refreshLEDs(val >> 2);
+		_delay_ms(100);
+		start += 100;
+	}
+	refreshLEDs(0);
+ 188:	80 e0       	ldi	r24, 0x00	; 0
+ 18a:	0e 94 6b 00 	call	0xd6	; 0xd6 <refreshLEDs>
+}
+ 18e:	ff 90       	pop	r15
+ 190:	ef 90       	pop	r14
+ 192:	df 90       	pop	r13
+ 194:	cf 90       	pop	r12
+ 196:	08 95       	ret
+
+00000198 <setup>:
+	}
+}
+
+void setup(void) {
+	// Configuración de LEDs
+	DDRB |= (1 << DDB0) | (1 << DDB1);
+ 198:	84 b1       	in	r24, 0x04	; 4
+ 19a:	83 60       	ori	r24, 0x03	; 3
+ 19c:	84 b9       	out	0x04, r24	; 4
+	DDRD |= 0xFC;
+ 19e:	8a b1       	in	r24, 0x0a	; 10
+ 1a0:	8c 6f       	ori	r24, 0xFC	; 252
+ 1a2:	8a b9       	out	0x0a, r24	; 10
+	
+	// Configuración de SS (PB2)
+	DDRB &= ~(1 << DDB2);
+ 1a4:	84 b1       	in	r24, 0x04	; 4
+ 1a6:	8b 7f       	andi	r24, 0xFB	; 251
+ 1a8:	84 b9       	out	0x04, r24	; 4
+	PORTB |= (1 << PORTB2);
+ 1aa:	85 b1       	in	r24, 0x05	; 5
+ 1ac:	84 60       	ori	r24, 0x04	; 4
+ 1ae:	85 b9       	out	0x05, r24	; 5
+	
+	// Inicialización del ADC
+	ADC_init();
+ 1b0:	0e 94 48 00 	call	0x90	; 0x90 <ADC_init>
+	
+	testHardware();
+ 1b4:	0e 94 7b 00 	call	0xf6	; 0xf6 <testHardware>
+ 1b8:	08 95       	ret
+
+000001ba <main>:
+void setup(void);
+void refreshLEDs(uint8_t value);
+void testHardware(void);
+
+int main(void) {
+	setup();
+ 1ba:	0e 94 cc 00 	call	0x198	; 0x198 <setup>
+	
+	// Configurar SPI
+	SPI_init(SPI_SLAVE, SPI_MSB_FIRST, SPI_CLOCK_IDLE_LOW, SPI_SAMPLE_ON_LEADING);
+ 1be:	20 e0       	ldi	r18, 0x00	; 0
+ 1c0:	40 e0       	ldi	r20, 0x00	; 0
+ 1c2:	60 e0       	ldi	r22, 0x00	; 0
+ 1c4:	80 e0       	ldi	r24, 0x00	; 0
+ 1c6:	0e 94 35 01 	call	0x26a	; 0x26a <SPI_init>
+	SPI_enable_interrupt();
+ 1ca:	0e 94 52 01 	call	0x2a4	; 0x2a4 <SPI_enable_interrupt>
+	sei();
+ 1ce:	78 94       	sei
+ 1d0:	ff cf       	rjmp	.-2      	; 0x1d0 <main+0x16>
+
+000001d2 <__vector_17>:
+		start += 100;
+	}
+	refreshLEDs(0);
+}
+
+ISR(SPI_STC_vect) {
+ 1d2:	1f 92       	push	r1
+ 1d4:	0f 92       	push	r0
+ 1d6:	0f b6       	in	r0, 0x3f	; 63
+ 1d8:	0f 92       	push	r0
+ 1da:	11 24       	eor	r1, r1
+ 1dc:	2f 93       	push	r18
+ 1de:	3f 93       	push	r19
+ 1e0:	4f 93       	push	r20
+ 1e2:	5f 93       	push	r21
+ 1e4:	6f 93       	push	r22
+ 1e6:	7f 93       	push	r23
+ 1e8:	8f 93       	push	r24
+ 1ea:	9f 93       	push	r25
+ 1ec:	af 93       	push	r26
+ 1ee:	bf 93       	push	r27
+ 1f0:	cf 93       	push	r28
+ 1f2:	ef 93       	push	r30
+ 1f4:	ff 93       	push	r31
+	static uint8_t command = 0;
+	uint8_t received = SPI_receive();
+ 1f6:	0e 94 56 01 	call	0x2ac	; 0x2ac <SPI_receive>
+ 1fa:	c8 2f       	mov	r28, r24
+	
+	if(received == 'p') {
+ 1fc:	80 37       	cpi	r24, 0x70	; 112
+ 1fe:	69 f4       	brne	.+26     	; 0x21a <__vector_17+0x48>
+		command = 1;
+ 200:	81 e0       	ldi	r24, 0x01	; 1
+ 202:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+		SPI_transmit(ADC_read(2) >> 2);
+ 206:	82 e0       	ldi	r24, 0x02	; 2
+ 208:	0e 94 52 00 	call	0xa4	; 0xa4 <ADC_read>
+ 20c:	96 95       	lsr	r25
+ 20e:	87 95       	ror	r24
+ 210:	96 95       	lsr	r25
+ 212:	87 95       	ror	r24
+ 214:	0e 94 58 01 	call	0x2b0	; 0x2b0 <SPI_transmit>
+ 218:	16 c0       	rjmp	.+44     	; 0x246 <__vector_17+0x74>
+	}
+	else if(command == 1) {
+ 21a:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 21e:	81 30       	cpi	r24, 0x01	; 1
+ 220:	61 f4       	brne	.+24     	; 0x23a <__vector_17+0x68>
+		SPI_transmit(ADC_read(3) >> 2);
+ 222:	83 e0       	ldi	r24, 0x03	; 3
+ 224:	0e 94 52 00 	call	0xa4	; 0xa4 <ADC_read>
+ 228:	96 95       	lsr	r25
+ 22a:	87 95       	ror	r24
+ 22c:	96 95       	lsr	r25
+ 22e:	87 95       	ror	r24
+ 230:	0e 94 58 01 	call	0x2b0	; 0x2b0 <SPI_transmit>
+		command = 0;
+ 234:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 238:	06 c0       	rjmp	.+12     	; 0x246 <__vector_17+0x74>
+	}
+	else {
+		refreshLEDs(received);
+ 23a:	8c 2f       	mov	r24, r28
+ 23c:	0e 94 6b 00 	call	0xd6	; 0xd6 <refreshLEDs>
+		SPI_transmit(received);
+ 240:	8c 2f       	mov	r24, r28
+ 242:	0e 94 58 01 	call	0x2b0	; 0x2b0 <SPI_transmit>
+	}
+ 246:	ff 91       	pop	r31
+ 248:	ef 91       	pop	r30
+ 24a:	cf 91       	pop	r28
+ 24c:	bf 91       	pop	r27
+ 24e:	af 91       	pop	r26
+ 250:	9f 91       	pop	r25
+ 252:	8f 91       	pop	r24
+ 254:	7f 91       	pop	r23
+ 256:	6f 91       	pop	r22
+ 258:	5f 91       	pop	r21
+ 25a:	4f 91       	pop	r20
+ 25c:	3f 91       	pop	r19
+ 25e:	2f 91       	pop	r18
+ 260:	0f 90       	pop	r0
+ 262:	0f be       	out	0x3f, r0	; 63
+ 264:	0f 90       	pop	r0
+ 266:	1f 90       	pop	r1
+ 268:	18 95       	reti
+
+0000026a <SPI_init>:
+ *  Author: Chris Q
+ */ 
+#include "SPI.h"
+
+void SPI_init(uint8_t mode, uint8_t data_order, uint8_t clock_polarity, uint8_t clock_phase) {
+	if(mode == SPI_MASTER) {
+ 26a:	81 30       	cpi	r24, 0x01	; 1
+ 26c:	31 f4       	brne	.+12     	; 0x27a <SPI_init+0x10>
+		DDRB |= (1 << DDB3) | (1 << DDB5); // MOSI y SCK como salidas
+ 26e:	84 b1       	in	r24, 0x04	; 4
+ 270:	88 62       	ori	r24, 0x28	; 40
+ 272:	84 b9       	out	0x04, r24	; 4
+		SPCR = (1 << SPE) | (1 << MSTR);
+ 274:	80 e5       	ldi	r24, 0x50	; 80
+ 276:	8c bd       	out	0x2c, r24	; 44
+ 278:	05 c0       	rjmp	.+10     	; 0x284 <SPI_init+0x1a>
+		} else {
+		DDRB |= (1 << DDB4); // MISO como salida
+ 27a:	84 b1       	in	r24, 0x04	; 4
+ 27c:	80 61       	ori	r24, 0x10	; 16
+ 27e:	84 b9       	out	0x04, r24	; 4
+		SPCR = (1 << SPE);
+ 280:	80 e4       	ldi	r24, 0x40	; 64
+ 282:	8c bd       	out	0x2c, r24	; 44
+	}
+	
+	if(data_order == SPI_LSB_FIRST) SPCR |= (1 << DORD);
+ 284:	61 30       	cpi	r22, 0x01	; 1
+ 286:	19 f4       	brne	.+6      	; 0x28e <SPI_init+0x24>
+ 288:	8c b5       	in	r24, 0x2c	; 44
+ 28a:	80 62       	ori	r24, 0x20	; 32
+ 28c:	8c bd       	out	0x2c, r24	; 44
+	if(clock_polarity == SPI_CLOCK_IDLE_HIGH) SPCR |= (1 << CPOL);
+ 28e:	41 30       	cpi	r20, 0x01	; 1
+ 290:	19 f4       	brne	.+6      	; 0x298 <SPI_init+0x2e>
+ 292:	8c b5       	in	r24, 0x2c	; 44
+ 294:	88 60       	ori	r24, 0x08	; 8
+ 296:	8c bd       	out	0x2c, r24	; 44
+	if(clock_phase == SPI_SAMPLE_ON_TRAILING) SPCR |= (1 << CPHA);
+ 298:	21 30       	cpi	r18, 0x01	; 1
+ 29a:	19 f4       	brne	.+6      	; 0x2a2 <SPI_init+0x38>
+ 29c:	8c b5       	in	r24, 0x2c	; 44
+ 29e:	84 60       	ori	r24, 0x04	; 4
+ 2a0:	8c bd       	out	0x2c, r24	; 44
+ 2a2:	08 95       	ret
+
+000002a4 <SPI_enable_interrupt>:
+}
+
+void SPI_enable_interrupt(void) {
+	SPCR |= (1 << SPIE);
+ 2a4:	8c b5       	in	r24, 0x2c	; 44
+ 2a6:	80 68       	ori	r24, 0x80	; 128
+ 2a8:	8c bd       	out	0x2c, r24	; 44
+ 2aa:	08 95       	ret
+
+000002ac <SPI_receive>:
+}
+
+uint8_t SPI_receive(void) {
+	return SPDR;
+ 2ac:	8e b5       	in	r24, 0x2e	; 46
+}
+ 2ae:	08 95       	ret
+
+000002b0 <SPI_transmit>:
+
+void SPI_transmit(uint8_t data) {
+	SPDR = data;
+ 2b0:	8e bd       	out	0x2e, r24	; 46
+ 2b2:	08 95       	ret
+
+000002b4 <_exit>:
+ 2b4:	f8 94       	cli
+
+000002b6 <__stop_program>:
+ 2b6:	ff cf       	rjmp	.-2      	; 0x2b6 <__stop_program>
