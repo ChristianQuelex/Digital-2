@@ -635,7 +635,7 @@ END GROUP
  *(.fini0)
                 0x00000f82                _etext = .
 
-.data           0x00800100       0x18 load address 0x00000f82
+.data           0x00800100       0x16 load address 0x00000f82
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -643,40 +643,39 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800100       0x17 main.o
+                0x00800100       0x16 main.o
  *(.gnu.linkonce.r*)
-                0x00800118                . = ALIGN (0x2)
- *fill*         0x00800117        0x1 
-                0x00800118                _edata = .
-                0x00800118                PROVIDE (__data_end, .)
+                0x00800116                . = ALIGN (0x2)
+                0x00800116                _edata = .
+                0x00800116                PROVIDE (__data_end, .)
 
-.bss            0x00800118       0x2c
-                0x00800118                PROVIDE (__bss_start, .)
+.bss            0x00800116       0x2c
+                0x00800116                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.contador  0x00800118        0x4 main.o
-                0x00800118                contador
+ .bss.contador  0x00800116        0x4 main.o
+                0x00800116                contador
  .bss.voltaje_pot
-                0x0080011c        0x4 main.o
-                0x0080011c                voltaje_pot
- .bss.valorI2C  0x00800120        0x1 main.o
-                0x00800120                valorI2C
+                0x0080011a        0x4 main.o
+                0x0080011a                voltaje_pot
+ .bss.valorI2C  0x0080011e        0x1 main.o
+                0x0080011e                valorI2C
  *(COMMON)
- COMMON         0x00800121       0x23 main.o
-                0x00800121                direccion
-                0x00800122                bufferI2C
-                0x00800123                temp
-                0x00800124                V_pot
-                0x00800134                CONT
-                0x00800144                PROVIDE (__bss_end, .)
+ COMMON         0x0080011f       0x23 main.o
+                0x0080011f                direccion
+                0x00800120                bufferI2C
+                0x00800121                temp
+                0x00800122                V_pot
+                0x00800132                CONT
+                0x00800142                PROVIDE (__bss_end, .)
                 0x00000f82                __data_load_start = LOADADDR (.data)
-                0x00000f9a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000f98                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800144        0x0
+.noinit         0x00800142        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800144                _end = .
+                0x00800142                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0

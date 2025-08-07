@@ -1,9 +1,11 @@
 /*
  * I2C.c
  *
- * Created: 1/08/2025 11:14:34
+ * Created: 7/08/2025 06:32:30
  *  Author: Chris Q
  */ 
+
+
 
 
 #include "I2C.h"
@@ -45,16 +47,14 @@ void I2C_Master_Init(unsigned long SCL_CLOCK, uint8_t Prescaler){
 
 }
 
-
 //FUNCION PARA EL INICIO DE LA COMUNICACION I2C
 
 
 void I2C_Master_Start(void){
 	uint8_t estado;
-	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);		//Se configura la condicion de Start
+	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);		//Se configura la condici?n de Start
 	while(!(TWCR & (1<<TWINT)));		//Espera a que termine la bandera TWINT
 }
-
 
 //FUNCION PARA LA PARADA DE LA COMUNICACION I2C
 
@@ -66,8 +66,6 @@ void I2C_Master_Stop(void){
 
 //Funcion de transmision de datos del maestro al esclavo
 //---> Esta funcion devolvera un 0 si el esclavo a recibido el dato
-
-
 uint8_t I2C_Master_Write(uint8_t dato){
 	uint8_t estado;
 
@@ -115,9 +113,8 @@ uint8_t I2C_Master_Read(uint8_t *buffer, uint8_t ack){
 
 
 void I2C_Slave_Init(uint8_t address){
-	DDRC &= ~((1 << DDC4)|(1 << DDC5));		// Pines de i2c como entradas --> Se debe implementar un Pull-Up con el nodo de 5V
-											//Generlamente se emplea una resistencia de 4.7Kohms
-									
+	DDRC &= ~((1 << DDC4)|(1 << DDC5));		// Pines de i2c como entradas
+
 	TWAR = address << 1; // Se asigna la direccion que tendra
 	//TWAR = (address << 1| 0x01); // Se asigna la direccion que tendra y habilita llamada general
 

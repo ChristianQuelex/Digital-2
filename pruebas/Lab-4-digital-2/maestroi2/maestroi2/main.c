@@ -26,26 +26,18 @@ void setup_leds(void);		//Se define un prefuncion de la conexion de los esclavos
 
 void float_to_string(float num, char *buffer, int precision); //Configura de entero a caracter
 
-
+//******************************************************************************************************************
 //VARIABLES GLOBALES
-
+//******************************************************************************************************************
 uint8_t direccion;
 uint8_t temp;			//Se define una variable temporal
 uint8_t bufferI2C;		//Variable encargada de configurar comunicaci?n: Maestro - Esclavo
 uint8_t valorI2C = 0;	//Variable encargada de recibir el dato enviado por el esclavo
 
 
-//Se establecen las variables del contador y potenciometro
-float voltaje_pot = 0;	//Se establece una variable para almacenar el valor del potenciometro recibido
-float contador = 0;		//Se establece una variable para almacenar el valor del contador recibido
-
-//Almacenar los valores convertido a texto	
-char V_pot[16];			//Variable encargada de almacenar la conversi?n del potenciometro a caracter
-char CONT[16];			//Variable encargada de almacenar la conversi?n del contador a caracter
-
-
+//******************************************************************************************************************
 //LOOP
-
+//******************************************************************************************************************
 
 int main(void)
 {
@@ -56,7 +48,7 @@ int main(void)
 	
 	//Se configuran textos iniciales en la LCD
 	LCD_Set_Cursor(4, 1);
-	LCD_Write_String("S1:   ");
+	LCD_Write_String("     ");
 	LCD_Write_String("  S2: ");
     while (1) 
     {
@@ -94,18 +86,6 @@ int main(void)
 			TWCR=(1 << TWINT)|(1 << TWEN);
 			while (!(TWCR & (1 << TWINT)));
 
-			valorI2C= TWDR;							//Se almacena el valor de la ADC enviado por el esclavo	
-
-			I2C_Master_Stop();
-			
-			voltaje_pot = (valorI2C*5)/255;		//Se convierte el valor de 255 del ADC a 5V
-			float_to_string(voltaje_pot, V_pot, 2);	//Se convierte el valor entero a caracter
-
-			LCD_Set_Cursor(3,2);
-			LCD_Write_String(V_pot);				//Se envia el valor del caracter a la LCD
-			
-			LCD_Set_Cursor(7,2);
-			LCD_Write_Char('V');
 			
 		}
 		
@@ -160,14 +140,16 @@ int main(void)
     }
 }
 
-//FUNCIONES
 
+//******************************************************************************************************************
+//FUNCIONES
+//******************************************************************************************************************
 void setup_leds(void){
-	//Configuracion de la Led Esclavo 1 - ADC
+	//Configuraci?n de la Led Esclavo 1 - ADC
 	DDRB |=(1 << DDB5);			//Se convigura el PB5 como salida
 	PORTB &= ~(1 << PORTB5);	//Se apaga PB5
 	
-	//Configuracion de la Led Esclavo 2 - Contador
+	//Configuraci?n de la Led Esclavo 2 - Contador
 	DDRC |=(1 << DDC0);			//Se convigura el PC0 como salida
 	PORTC &= ~(1 << PORTC0);	//Se apaga PC0
 }
@@ -175,13 +157,6 @@ void setup_leds(void){
 void float_to_string(float num, char *buffer, int precision){
 	// Parte entera
 	int integer_part = (int)num;
-	
-	// Parte decimal
-	float decimal_part = num - integer_part;
-	
-	// Convertir la parte entera a cadena
-	char int_buffer[16]; // Buffer para la parte entera
-	snprintf(int_buffer, sizeof(int_buffer), "%d", integer_part);
 	
 	// Convertir la parte decimal a cadena
 	char dec_buffer[16]; // Buffer para la parte decimal
