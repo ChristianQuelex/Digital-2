@@ -103,9 +103,9 @@ Disassembly of section .text:
 000000a6 <I2C_Master_Init>:
 #include "I2C.h"
 
-//******************************************************************************************************************
+
 //FUNCION PARA INICIALIZAR I2C Maestro
-//******************************************************************************************************************
+
 void I2C_Master_Init(unsigned long SCL_CLOCK, uint8_t Prescaler){
   a6:	0f 93       	push	r16
   a8:	1f 93       	push	r17
@@ -231,7 +231,7 @@ void I2C_Master_Init(unsigned long SCL_CLOCK, uint8_t Prescaler){
 
 0000015e <I2C_Master_Start>:
 //FUNCION PARA EL INICIO DE LA COMUNICACION I2C
-//******************************************************************************************************************
+
 
 void I2C_Master_Start(void){
 	uint8_t estado;
@@ -246,9 +246,9 @@ void I2C_Master_Start(void){
  16c:	08 95       	ret
 
 0000016e <I2C_Master_Stop>:
-//******************************************************************************************************************
+
 //FUNCION PARA LA PARADA DE LA COMUNICACION I2C
-//******************************************************************************************************************
+
 
 void I2C_Master_Stop(void){
 	TWCR = (1<<TWEN)|(1<<TWINT)|(1<<TWSTO);		//Inicia la secuancia de parada del STOP
@@ -257,7 +257,7 @@ void I2C_Master_Stop(void){
  174:	08 95       	ret
 
 00000176 <I2C_Master_Write>:
-//*****************************************************************************************************************
+
 
 uint8_t I2C_Master_Write(uint8_t dato){
 	uint8_t estado;
@@ -300,7 +300,7 @@ uint8_t I2C_Master_Write(uint8_t dato){
 000001a6 <LCD_Port>:
 }
 
-// Funci?n para escribir en los pines de datos de la LCD
+// Funcion para escribir en los pines de datos de la LCD
 void LCD_Port(char a) {
 	// Bits menos significativos en PORTD (D0-D5)
 	PORTD = (PORTD & 0x03) | ((a & 0x3F) << 2);
@@ -330,7 +330,7 @@ void LCD_Port(char a) {
 	_delay_ms(2);
 }
 
-// Funci?n para enviar un comando a la LCD
+// Funcion para enviar un comando a la LCD
 void LCD_CMD(char a) {
 	PORTB &= ~(1 << PORTB2); // RS = 0 (modo comando)
  1cc:	95 b1       	in	r25, 0x05	; 5
@@ -364,7 +364,7 @@ void LCD_CMD(char a) {
 000001f0 <initLCD8bits>:
 #include <util/delay.h>
 
-// Funci?n para inicializar la LCD en modo 8 bits
+// Funcion para inicializar la LCD en modo 8 bits
 void initLCD8bits(void){
 	// Configurar los pines como salida
 	DDRB |= (1 << DDB0) | (1 << DDB1) | (1 << DDB2) | (1 << DDB3); // D6, D7, RS, E
@@ -391,7 +391,7 @@ void initLCD8bits(void){
  20e:	00 c0       	rjmp	.+0      	; 0x210 <initLCD8bits+0x20>
  210:	00 00       	nop
 
-	// Secuencia de inicializaci?n de la LCD
+	// Secuencia de inicializacion de la LCD
 	_delay_ms(20);
 	LCD_CMD(0x30);
  212:	80 e3       	ldi	r24, 0x30	; 48
@@ -448,7 +448,7 @@ void initLCD8bits(void){
 	PORTB = (PORTB & 0xFC) | ((a >> 6) & 0x03);
 }
 
-// Funci?n para escribir un car?cter en la LCD
+// Funcion para escribir un car?cter en la LCD
 void LCD_Write_Char(char c){
 	PORTB |= (1 << PORTB2); // RS = 1 (modo datos)
  26e:	95 b1       	in	r25, 0x05	; 5
@@ -476,7 +476,7 @@ void LCD_Write_Char(char c){
 00000292 <LCD_Write_String>:
 }
 
-// Funci?n para escribir una cadena de caracteres en la LCD
+// Funcion para escribir una cadena de caracteres en la LCD
 void LCD_Write_String(char *a) {
  292:	cf 93       	push	r28
  294:	df 93       	push	r29
@@ -490,7 +490,7 @@ void LCD_Write_String(char *a) {
 	PORTB &= ~(1 << PORTB3); // E = 0
 }
 
-// Funci?n para escribir una cadena de caracteres en la LCD
+// Funcion para escribir una cadena de caracteres en la LCD
 void LCD_Write_String(char *a) {
 	while (*a) {
  2a0:	88 81       	ld	r24, Y
@@ -506,7 +506,7 @@ void LCD_Write_String(char *a) {
 
 000002ac <LCD_Set_Cursor>:
 
-// Funci?n para posicionar el cursor en la LCD
+// Funcion para posicionar el cursor en la LCD
 void LCD_Set_Cursor(char c, char f) {
 	char temp = (f == 1) ? (0x80 + c - 1) : (0xC0 + c - 1);
  2ac:	61 30       	cpi	r22, 0x01	; 1
@@ -519,11 +519,11 @@ void LCD_Set_Cursor(char c, char f) {
  2ba:	08 95       	ret
 
 000002bc <setup_leds>:
-//******************************************************************************************************************
+
 //FUNCIONES
-//******************************************************************************************************************
+
 void setup_leds(void){
-	//Configuraci?n de la Led Esclavo 1 - ADC
+	//Configuracion de la Led Esclavo 1 - ADC
 	DDRB |=(1 << DDB5);			//Se convigura el PB5 como salida
  2bc:	84 b1       	in	r24, 0x04	; 4
  2be:	80 62       	ori	r24, 0x20	; 32
@@ -533,7 +533,7 @@ void setup_leds(void){
  2c4:	8f 7d       	andi	r24, 0xDF	; 223
  2c6:	85 b9       	out	0x05, r24	; 5
 	
-	//Configuraci?n de la Led Esclavo 2 - Contador
+	//Configuracion de la Led Esclavo 2 - Contador
 	DDRC |=(1 << DDC0);			//Se convigura el PC0 como salida
  2c8:	87 b1       	in	r24, 0x07	; 7
  2ca:	81 60       	ori	r24, 0x01	; 1
@@ -721,7 +721,7 @@ void float_to_string(float num, char *buffer, int precision){
 
 00000402 <main>:
 //LOOP
-//******************************************************************************************************************
+
 
 int main(void)
 {

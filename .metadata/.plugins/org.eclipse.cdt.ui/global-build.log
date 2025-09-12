@@ -1,0 +1,705 @@
+10:07:23 **** Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f446retx.d" -MT"Core/Startup/startup_stm32f446retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f446retx.o" "../Core/Startup/startup_stm32f446retx.s"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f4xx.d" -MT"Core/Src/system_stm32f4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32f4xx.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:15:06 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:15:56 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:21:32 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:22:48 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:27:54 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:28:06 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:31:54 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:32:05 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'showDisplay':
+../Core/Src/main.c:313:42: error: 'A_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                          ^~~~~~~~~~~
+      |                                          B1_GPIO_Port
+../Core/Src/main.c:313:42: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:313:55: error: 'B_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                       ^~~~~~~~~~~
+      |                                                       B1_GPIO_Port
+../Core/Src/main.c:313:68: error: 'C_GPIO_Port' undeclared (first use in this function); did you mean 'TCK_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                    ^~~~~~~~~~~
+      |                                                                    TCK_GPIO_Port
+../Core/Src/main.c:313:81: error: 'D_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                 ^~~~~~~~~~~
+      |                                                                                 B1_GPIO_Port
+../Core/Src/main.c:313:94: error: 'E_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                              ^~~~~~~~~~~
+      |                                                                                              B1_GPIO_Port
+../Core/Src/main.c:313:107: error: 'F_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                           ^~~~~~~~~~~
+      |                                                                                                           B1_GPIO_Port
+../Core/Src/main.c:313:120: error: 'G_GPIO_Port' undeclared (first use in this function); did you mean 'B1_GPIO_Port'?
+  313 |         GPIO_TypeDef *display_ports[] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};    // pin port, add dot if necessary
+      |                                                                                                                        ^~~~~~~~~~~
+      |                                                                                                                        B1_GPIO_Port
+../Core/Src/main.c:314:36: error: 'A_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                    ^~~~~
+      |                                    B1_Pin
+../Core/Src/main.c:314:43: error: 'B_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                           ^~~~~
+      |                                           B1_Pin
+../Core/Src/main.c:314:50: error: 'C_Pin' undeclared (first use in this function); did you mean 'TCK_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                  ^~~~~
+      |                                                  TCK_Pin
+../Core/Src/main.c:314:57: error: 'D_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                         ^~~~~
+      |                                                         B1_Pin
+../Core/Src/main.c:314:64: error: 'E_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                ^~~~~
+      |                                                                B1_Pin
+../Core/Src/main.c:314:71: error: 'F_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                       ^~~~~
+      |                                                                       B1_Pin
+../Core/Src/main.c:314:78: error: 'G_Pin' undeclared (first use in this function); did you mean 'B1_Pin'?
+  314 |         uint16_t display_pins[] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};                                                                                                    // pin number, add dot if necessary
+      |                                                                              ^~~~~
+      |                                                                              B1_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+10:32:34 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   9068	     60	   1644	  10772	   2a14	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+11:13:48 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   8964	     60	   1644	  10668	   29ac	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+11:13:57 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8964	     60	   1644	  10668	   29ac	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+11:36:39 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   9176	     60	   1644	  10880	   2a80	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+11:37:13 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9176	     60	   1644	  10880	   2a80	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+11:53:11 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   9664	     60	   1652	  11376	   2c70	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+13:51:01 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   9824	    108	   1652	  11584	   2d40	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+14:12:20 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Prueba Hola mundo.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Documents\Electronica Digital 2\Laboratorios\Digital-2\Prueba Hola mundo\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba Hola mundo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba Hola mundo.elf
+ 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+arm-none-eabi-objdump -h -S Prueba\ Hola\ mundo.elf  > "Prueba Hola mundo.list"
+   text	   data	    bss	    dec	    hex	filename
+   9920	    108	   1660	  11688	   2da8	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+Finished building: Prueba Hola mundo.list
+ 
+14:18:49 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9920	    108	   1660	  11688	   2da8	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 
+18:13:12 **** Incremental Build of configuration Debug for project Prueba Hola mundo ****
+make -j12 all 
+arm-none-eabi-size  Prueba\ Hola\ mundo.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9920	    108	   1660	  11688	   2da8	Prueba Hola mundo.elf
+Finished building: default.size.stdout
+ 

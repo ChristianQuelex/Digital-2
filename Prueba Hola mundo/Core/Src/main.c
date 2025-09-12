@@ -1,0 +1,356 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  * This software is licensed under terms in the LICENSE file.
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdint.h>
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define SEM_DELAY_MS      1000U
+#define LEDS_PER_PLAYER   8U
+#define MAX_LAPS          3U
+#define DEBOUNCE_MS       30U
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart2;
+
+/* USER CODE BEGIN PV */
+/* Mapeo de 8 LEDs por jugador (en el orden en que se “llenan”) */
+/* Jugador 1: P1L1, P1L2, P1L3, P1L4, P1L5, (P1L6=L1P6), (P1L7=L1P7), P1L8 */
+GPIO_TypeDef *p1_ports[LEDS_PER_PLAYER] = {
+  P1L1_GPIO_Port, P1L2_GPIO_Port, P1L3_GPIO_Port, P1L4_GPIO_Port,
+  P1L5_GPIO_Port, L1P6_GPIO_Port, L1P7_GPIO_Port, P1L8_GPIO_Port
+};
+uint16_t p1_pins[LEDS_PER_PLAYER] = {
+  P1L1_Pin, P1L2_Pin, P1L3_Pin, P1L4_Pin,
+  P1L5_Pin, L1P6_Pin, L1P7_Pin, P1L8_Pin
+};
+
+/* Jugador 2: P2L1..P2L8 */
+GPIO_TypeDef *p2_ports[LEDS_PER_PLAYER] = {
+  P2L1_GPIO_Port, P2L2_GPIO_Port, P2L3_GPIO_Port, P2L4_GPIO_Port,
+  P2L5_GPIO_Port, P2L6_GPIO_Port, P2L7_GPIO_Port, P2L8_GPIO_Port
+};
+uint16_t p2_pins[LEDS_PER_PLAYER] = {
+  P2L1_Pin, P2L2_Pin, P2L3_Pin, P2L4_Pin,
+  P2L5_Pin, P2L6_Pin, P2L7_Pin, P2L8_Pin
+};
+
+/* Estado del juego */
+volatile uint8_t start = 0;          // 0=idle, 1=semaforo, 2=juego habilitado
+volatile uint8_t p1_count = 0;       // LEDs encendidos en la vuelta actual (0..8)
+volatile uint8_t p2_count = 0;
+volatile uint8_t p1_laps  = 0;       // vueltas completadas (0..3)
+volatile uint8_t p2_laps  = 0;
+volatile uint8_t winner   = 0;       // 0=nadie, 1=J1, 2=J2
+uint8_t winner_applied    = 0;       // para ejecutar el efecto una sola vez
+
+/* Antirrebote */
+static uint32_t t_btn1 = 0, t_btn2 = 0, t_b1 = 0;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+/* USER CODE BEGIN PFP */
+static void SemaforoInicio(void);
+static void ClearPlayerBar(GPIO_TypeDef **ports, uint16_t *pins);
+static void SetPlayerLed(GPIO_TypeDef **ports, uint16_t *pins, uint8_t idx);
+static void ShowWinner(uint8_t who);
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+/* USER CODE END 0 */
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+
+  while (1)
+  {
+    if (start == 1) {
+      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+      SemaforoInicio();     // L1 -> L2 -> L3
+      start = 2;            // habilitar juego
+    }
+
+    // Efecto de victoria (una sola vez)
+    if (winner != 0 && !winner_applied) {
+      ShowWinner(winner);
+      winner_applied = 1;
+    }
+  }
+}
+
+/* ===================== Soporte ===================== */
+
+static void ClearPlayerBar(GPIO_TypeDef **ports, uint16_t *pins)
+{
+  for (uint8_t i = 0; i < LEDS_PER_PLAYER; i++) {
+    HAL_GPIO_WritePin(ports[i], pins[i], GPIO_PIN_RESET);
+  }
+}
+
+static void SetPlayerLed(GPIO_TypeDef **ports, uint16_t *pins, uint8_t idx)
+{
+  if (idx < LEDS_PER_PLAYER) {
+    HAL_GPIO_WritePin(ports[idx], pins[idx], GPIO_PIN_SET);
+  }
+}
+
+/**
+  * @brief Muestra ganador: enciende G1 o G2 y fija barras.
+  */
+static void ShowWinner(uint8_t who)
+{
+  HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_RESET);
+
+  if (who == 1) {
+    ClearPlayerBar(p2_ports, p2_pins);
+    for (uint8_t i = 0; i < LEDS_PER_PLAYER; i++) HAL_GPIO_WritePin(p1_ports[i], p1_pins[i], GPIO_PIN_SET);
+    HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_SET);
+  } else if (who == 2) {
+    ClearPlayerBar(p1_ports, p1_pins);
+    for (uint8_t i = 0; i < LEDS_PER_PLAYER; i++) HAL_GPIO_WritePin(p2_ports[i], p2_pins[i], GPIO_PIN_SET);
+    HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_SET);
+  }
+}
+
+/**
+  * @brief Secuencia de semáforo L1 -> L2 -> L3 para iniciar el juego.
+  */
+static void SemaforoInicio(void)
+{
+  HAL_GPIO_WritePin(L1_GPIO_Port, L1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(L2_GPIO_Port, L2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(L3_GPIO_Port, L3_Pin, GPIO_PIN_RESET);
+
+  HAL_GPIO_WritePin(L1_GPIO_Port, L1_Pin, GPIO_PIN_SET);
+  HAL_Delay(SEM_DELAY_MS);
+
+  HAL_GPIO_WritePin(L1_GPIO_Port, L1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(L2_GPIO_Port, L2_Pin, GPIO_PIN_SET);
+  HAL_Delay(SEM_DELAY_MS);
+
+  HAL_GPIO_WritePin(L2_GPIO_Port, L2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(L3_GPIO_Port, L3_Pin, GPIO_PIN_SET);
+  HAL_Delay(SEM_DELAY_MS);
+
+  HAL_GPIO_WritePin(L3_GPIO_Port, L3_Pin, GPIO_PIN_RESET);
+}
+
+/* ===================== HAL / Cube ===================== */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  uint32_t now = HAL_GetTick();
+
+  // BTN1 (Jugador 1)
+  if (GPIO_Pin == BTN1_Pin) {
+    if ((now - t_btn1) < DEBOUNCE_MS) return;   // antirrebote
+    t_btn1 = now;
+
+    if (start == 2 && winner == 0) {
+      if (p1_count < LEDS_PER_PLAYER) {
+        SetPlayerLed(p1_ports, p1_pins, p1_count);
+        p1_count++;
+        if (p1_count == LEDS_PER_PLAYER) {
+          p1_laps++;
+          if (p1_laps >= MAX_LAPS) {
+            winner = 1;                 // Gana J1
+          } else {
+            ClearPlayerBar(p1_ports, p1_pins);  // siguiente vuelta
+            p1_count = 0;
+          }
+        }
+      }
+    }
+    return;
+  }
+
+  // BTN2 (Jugador 2)
+  if (GPIO_Pin == BTN2_Pin) {
+    if ((now - t_btn2) < DEBOUNCE_MS) return;
+    t_btn2 = now;
+
+    if (start == 2 && winner == 0) {
+      if (p2_count < LEDS_PER_PLAYER) {
+        SetPlayerLed(p2_ports, p2_pins, p2_count);
+        p2_count++;
+        if (p2_count == LEDS_PER_PLAYER) {
+          p2_laps++;
+          if (p2_laps >= MAX_LAPS) {
+            winner = 2;                 // Gana J2
+          } else {
+            ClearPlayerBar(p2_ports, p2_pins);
+            p2_count = 0;
+          }
+        }
+      }
+    }
+    return;
+  }
+
+  // B1 (botón azul) -> lanzar semáforo y resetear estado
+  if (GPIO_Pin == B1_Pin) {
+    if ((now - t_b1) < DEBOUNCE_MS) return;
+    t_b1 = now;
+
+    if (start == 0) {
+      p1_count = p2_count = 0;
+      p1_laps  = p2_laps  = 0;
+      winner = 0; winner_applied = 0;
+      ClearPlayerBar(p1_ports, p1_pins);
+      ClearPlayerBar(p2_ports, p2_pins);
+      HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_RESET);
+
+      start = 1;  // el semáforo correrá en el while(1)
+    }
+    return;
+  }
+}
+
+/**
+  * @brief System Clock Configuration
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 80;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) { Error_Handler(); }
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) { Error_Handler(); }
+}
+
+/**
+  * @brief USART2 Initialization Function
+  */
+static void MX_USART2_UART_Init(void)
+{
+  huart2.Instance          = USART2;
+  huart2.Init.BaudRate     = 115200;
+  huart2.Init.WordLength   = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits     = UART_STOPBITS_1;
+  huart2.Init.Parity       = UART_PARITY_NONE;
+  huart2.Init.Mode         = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK) { Error_Handler(); }
+}
+
+/**
+  * @brief GPIO Initialization Function
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /* Estados iniciales en bajo */
+  HAL_GPIO_WritePin(GPIOA,
+      P2L4_Pin|P2L3_Pin|P2L2_Pin|LD2_Pin|P1L4_Pin|P1L3_Pin|L1_Pin|L1P7_Pin|P1L8_Pin,
+      GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB,
+      P2L1_Pin|P2L8_Pin|P1L5_Pin|L2_Pin|L1P6_Pin|P2L5_Pin|P2L6_Pin|P2L7_Pin|L3_Pin|P1L2_Pin,
+      GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC,
+      G1_Pin|P1L1_Pin|G2_Pin,
+      GPIO_PIN_RESET);
+
+  /* Botones (EXTI) - mismo esquema que te funcionó: FALLING + PULLUP */
+  GPIO_InitStruct.Pin  = B1_Pin|BTN1_Pin|BTN2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /* Salidas en GPIOA */
+  GPIO_InitStruct.Pin   = P2L4_Pin|P2L3_Pin|P2L2_Pin|LD2_Pin|P1L4_Pin|P1L3_Pin|L1_Pin|L1P7_Pin|P1L8_Pin;
+  GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull  = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* Salidas en GPIOB */
+  GPIO_InitStruct.Pin   = P2L1_Pin|P2L8_Pin|P1L5_Pin|L2_Pin|L1P6_Pin|P2L5_Pin|P2L6_Pin|P2L7_Pin|L3_Pin|P1L2_Pin;
+  GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull  = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* Salidas en GPIOC */
+  GPIO_InitStruct.Pin   = G1_Pin|P1L1_Pin|G2_Pin;
+  GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull  = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /* NVIC EXTI */
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);      HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);      HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
+
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1) { }
+}
+
+#ifdef USE_FULL_ASSERT
+void assert_failed(uint8_t *file, uint32_t line) { }
+#endif
