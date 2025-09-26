@@ -1,0 +1,274 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body (UARTs por interrupciones)
+  ******************************************************************************
+  * @attention
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  * This software is licensed under terms in the LICENSE file.
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <string.h>
+#include <stdio.h>
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+#define UART2_TXQ_SIZE   8      // nº de mensajes en cola
+#define UART2_ITEM_MAX   64     // tamaño máx de cada mensaje
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart2;
+
+/* USER CODE BEGIN PV */
+uint8_t rx1_byte; // 1 byte recibido por USART1
+
+// Cola circular sencilla para TX por interrupción en USART2
+static char     uart2_txq[UART2_TXQ_SIZE][UART2_ITEM_MAX];
+static volatile uint8_t uart2_head = 0;   // próxima posición libre para escribir
+static volatile uint8_t uart2_tail = 0;   // siguiente mensaje a enviar
+static volatile uint8_t uart2_tx_in_progress = 0;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_USART1_UART_Init(void);
+
+/* USER CODE BEGIN PFP */
+static void UART2_QueueSend(const char *s);
+static void UART2_KickTx(void);
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+static void UART2_QueueSend(const char *s)
+{
+  uint8_t next = (uart2_head + 1) % UART2_TXQ_SIZE;
+  if (next == uart2_tail) {
+    return; // cola llena -> descarta (o maneja overflow)
+  }
+  strncpy(uart2_txq[uart2_head], s, UART2_ITEM_MAX - 1);
+  uart2_txq[uart2_head][UART2_ITEM_MAX - 1] = '\0';
+  uart2_head = next;
+
+  if (!uart2_tx_in_progress) {
+    UART2_KickTx();
+  }
+}
+
+static void UART2_KickTx(void)
+{
+  if (uart2_tail == uart2_head) {
+    uart2_tx_in_progress = 0;
+    return; // cola vacía
+  }
+  size_t len = strlen(uart2_txq[uart2_tail]);
+  if (len == 0) {
+    uart2_tail = (uart2_tail + 1) % UART2_TXQ_SIZE;
+    UART2_KickTx();
+    return;
+  }
+  uart2_tx_in_progress = 1;
+  HAL_UART_Transmit_IT(&huart2, (uint8_t*)uart2_txq[uart2_tail], (uint16_t)len);
+}
+/* USER CODE END 0 */
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();   // PC (ST-LINK VCP) @115200
+  MX_USART1_UART_Init();   // Arduino @9600
+
+  /* USER CODE BEGIN 2 */
+  // NVIC USART1 y USART2 (redundante si CubeMX ya lo generó; seguro dejarlo)
+  HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(USART1_IRQn);
+  HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(USART2_IRQn);
+
+  // Mensajes de arranque por USART2 (via interrupción)
+  UART2_QueueSend("USART2 OK\r\n");
+  UART2_QueueSend("ready\r\n");
+
+  // RX por interrupción en USART1 (desde Arduino)
+  HAL_UART_Receive_IT(&huart1, &rx1_byte, 1);
+  /* USER CODE END 2 */
+
+  while (1)
+  {
+    //UART2_QueueSend("tick\r\n");  // se envía por IT
+    HAL_Delay(1000);
+    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+  }
+}
+
+/**
+  * @brief System Clock Configuration
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 16;
+  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) { Error_Handler(); }
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) { Error_Handler(); }
+}
+
+static void MX_USART1_UART_Init(void)
+{
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK) { Error_Handler(); }
+}
+
+static void MX_USART2_UART_Init(void)
+{
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK) { Error_Handler(); }
+}
+
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+  GPIO_InitStruct.Pin = B1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LD2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+}
+
+/* ===================== Callbacks ====================== */
+
+// TX por IT de USART2 encadena la cola
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart == &huart2) {
+    uart2_tail = (uart2_tail + 1) % UART2_TXQ_SIZE;
+    if (uart2_tail != uart2_head) {
+      UART2_KickTx();
+    } else {
+      uart2_tx_in_progress = 0;
+    }
+  }
+}
+
+// RX por IT desde USART1 (Arduino)
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart == &huart1) {
+    char line[UART2_ITEM_MAX];
+    const char *texto = NULL;
+
+    switch (rx1_byte) {
+      case '0': texto = "arriba";    break;
+      case '1': texto = "abajo";     break;
+      case '2': texto = "izquierda"; break;
+      case '3': texto = "derecha";   break;
+      case '4': texto = "Accion 1";  break;
+      case '5': texto = "Accion 2";  break;
+      default:  texto = "(no mapeado)"; break;
+    }
+
+   // snprintf(line, sizeof(line), "Btn: %c\r\n%s\r\n",
+   //          (rx1_byte >= 32 && rx1_byte <= 126) ? rx1_byte : '.',
+   //          texto);
+
+    snprintf(line, sizeof(line), "%s\r\n", texto);
+    //UART2_QueueSend(line);
+
+
+    UART2_QueueSend(line);                      // mandar al PC (USART2, por IT)
+    HAL_UART_Receive_IT(&huart1, &rx1_byte, 1); // rearmar 1 byte
+  }
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  if (huart == &huart1) {
+    uint32_t err = HAL_UART_GetError(&huart1);
+    char msg[64];
+    int n = snprintf(msg, sizeof(msg), "UART1 ERR: 0x%08lX\r\n", err);
+    if (n > 0) UART2_QueueSend(msg);
+
+    __HAL_UART_CLEAR_OREFLAG(&huart1); // por si hubo Overrun
+    HAL_UART_Receive_IT(&huart1, &rx1_byte, 1);
+  }
+}
+
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1) { }
+}
+
+#ifdef USE_FULL_ASSERT
+void assert_failed(uint8_t *file, uint32_t line) { }
+#endif
