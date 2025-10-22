@@ -1,0 +1,16 @@
+02:01:12 **** Build of configuration Debug for project ILI9341SPI ****
+make -j12 all 
+arm-none-eabi-gcc -o "ILI9341SPI.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Desktop\ILI9341SPI2\ILI9341SPI\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ILI9341SPI.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ILI9341SPI.elf
+ 
+arm-none-eabi-size  ILI9341SPI.elf 
+arm-none-eabi-objdump -h -S ILI9341SPI.elf  > "ILI9341SPI.list"
+   text	   data	    bss	    dec	    hex	filename
+ 482636	     16	  78696	 561348	  890c4	ILI9341SPI.elf
+Finished building: default.size.stdout
+ 
+Finished building: ILI9341SPI.list
+ 
+
+02:01:13 Build Finished. 0 errors, 0 warnings. (took 611ms)
+

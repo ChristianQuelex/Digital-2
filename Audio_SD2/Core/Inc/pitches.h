@@ -1,0 +1,60 @@
+#ifndef PITCHES_H
+#define PITCHES_H
+
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Notas en Hz (float) */
+#define NOTE_C4   261.63f
+#define NOTE_CS4  277.18f
+#define NOTE_D4   293.66f
+#define NOTE_DS4  311.13f
+#define NOTE_E4   329.63f
+#define NOTE_F4   349.23f
+#define NOTE_FS4  369.99f
+#define NOTE_G4   392.00f
+#define NOTE_GS4  415.30f
+#define NOTE_A4   440.00f
+#define NOTE_AS4  466.16f
+#define NOTE_B4   493.88f
+
+#define NOTE_C5   523.25f
+#define NOTE_CS5  554.37f
+#define NOTE_D5   587.33f
+#define NOTE_DS5  622.25f
+#define NOTE_E5   659.25f
+#define NOTE_F5   698.46f
+#define NOTE_FS5  739.99f
+#define NOTE_G5   783.99f
+#define NOTE_GS5  830.61f
+#define NOTE_A5   880.00f
+#define NOTE_AS5  932.33f
+#define NOTE_B5   987.77f
+
+#define NOTE_C6   1046.50f
+#define NOTE_CS6  1108.73f
+#define NOTE_D6   1174.66f
+#define NOTE_F6   1396.91f
+
+#define REST      0.0f
+
+typedef struct {
+  float    freq_hz;    // 0.0f = silencio
+  uint8_t  dur_beats;  // 4=negra; 8=blanca; 2=corchea; 6=negra con puntillo, etc.
+} Note;
+
+/* Declaraciones de melodías (definidas en pitches.c) */
+extern const Note IMPERIAL_MARCH[];
+extern const unsigned int IMPERIAL_MARCH_LEN;
+
+extern const Note HARRY_POTTER[];
+extern const unsigned int HARRY_POTTER_LEN;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* PITCHES_H */

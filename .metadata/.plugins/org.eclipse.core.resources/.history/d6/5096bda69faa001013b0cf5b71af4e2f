@@ -1,0 +1,179 @@
+/* Minimal DAC tone test: 1 kHz sine @ 48 kHz Fs via TIM6+DMA (STM32F446) */
+#include "main.h"
+#include <math.h>
+/* ---- Handles ---- */
+DAC_HandleTypeDef hdac;
+DMA_HandleTypeDef hdma_dac1;
+TIM_HandleTypeDef htim6;
+
+/* ---- Config ---- */
+#define FS_HZ          48000U              // 48 kHz exacto
+#define TONE_HZ        1000.0f             // 1 kHz
+#define WT_SIZE        1024U               // wavetable grande para menos cuantización
+#define BUF_SAMPLES    1024U               // 2 mitades de 512 cada una
+#define DAC_MAX_12B    4095U
+#define DAC_OFFSET     2048U
+
+/* ---- Buffers ---- */
+static uint16_t wt[WT_SIZE];
+static uint16_t buf[BUF_SAMPLES];
+
+/* ---- Fase Q16.16 ---- */
+static uint32_t phase_q16 = 0;
+static uint32_t inc_q16   = 0;
+/* Diagnóstico underrun */
+static volatile uint32_t dac_udr_count = 0;
+
+/* Prototipos */
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_DAC_Init(void);
+static void MX_TIM6_Init(void);
+
+/* ===== Helpers ===== */
+static void WT_InitSine(void){
+  for (uint32_t i=0;i<WT_SIZE;++i){
+    float s = sinf(2.0f*3.14159265359f*(float)i/(float)WT_SIZE);
+    /* 0..4095 con ±48 % para evitar clipping en la entrada del PAM */
+    wt[i] = (uint16_t)((s*0.48f + 0.5f)*DAC_MAX_12B);
+  }
+}
+
+static void Audio_SetFreq(float f_hz){
+  if (f_hz <= 0.0f) { inc_q16 = 0; return; }
+  float step = (f_hz * (float)WT_SIZE) / (float)FS_HZ;   // (f/Fs)*N
+  inc_q16 = (uint32_t)(step * 65536.0f);
+}
+
+/* Rellena mitad simple (sin player, sin fades) */
+static void FillHalf(uint32_t off, uint32_t len){
+  if (inc_q16==0){
+    for (uint32_t i=0;i<len;++i) buf[off+i] = DAC_OFFSET;
+    return;
+  }
+  for (uint32_t i=0;i<len;++i){
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE-1);
+    buf[off+i]   = wt[idx];
+    phase_q16   += inc_q16;
+  }
+}
+
+/* Callbacks DMA */
+void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* _){
+  if (__HAL_DAC_GET_FLAG(&hdac, DAC_FLAG_DMAUDR1)){
+    __HAL_DAC_CLEAR_FLAG(&hdac, DAC_FLAG_DMAUDR1);
+    dac_udr_count++;
+  }
+  FillHalf(0, BUF_SAMPLES/2);
+}
+void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* _){
+  if (__HAL_DAC_GET_FLAG(&hdac, DAC_FLAG_DMAUDR1)){
+    __HAL_DAC_CLEAR_FLAG(&hdac, DAC_FLAG_DMAUDR1);
+    dac_udr_count++;
+  }
+  FillHalf(BUF_SAMPLES/2, BUF_SAMPLES/2);
+}
+
+/* ============ main ============ */
+int main(void){
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_DAC_Init();
+  MX_TIM6_Init();
+
+  WT_InitSine();
+  Audio_SetFreq(TONE_HZ);
+
+  /* Prellenado */
+  phase_q16 = 0;
+  FillHalf(0, BUF_SAMPLES);
+
+  /* Start DAC+DMA+TIM */
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)buf, BUF_SAMPLES, DAC_ALIGN_12B_R);
+  HAL_TIM_Base_Start(&htim6);
+
+  while (1){
+    /* Opcional: aquí podrías parpadear un LED o sondear dac_udr_count */
+    HAL_Delay(500);
+  }
+}
+
+/* ===== Clocks: HSE 8 MHz -> PLL 84 MHz ===== */
+void SystemClock_Config(void){
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState       = RCC_HSE_ON;
+  RCC_OscInitStruct.HSIState       = RCC_HSI_OFF;
+  RCC_OscInitStruct.PLL.PLLState   = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource  = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM       = 8;                 // 8/8=1 MHz
+  RCC_OscInitStruct.PLL.PLLN       = 336;               // 336 MHz
+  RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV4;     // 84 MHz SYSCLK
+  RCC_OscInitStruct.PLL.PLLQ       = 7;                 // 48 MHz
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!=HAL_OK) while(1);
+
+  RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                                   | RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;     // 42 MHz (TIM6=84 MHz x2)
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2)!=HAL_OK) while(1);
+}
+
+/* ===== TIM6 @ 48 kHz exacto =====
+   84e6 / (PSC+1) / (ARR+1) = 48000
+   Elegimos: (PSC+1)=35  y (ARR+1)=50  => 35*50=1750 ; 84e6/1750=48000
+*/
+static void MX_TIM6_Init(void){
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler         = 34;       // 35
+  htim6.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  htim6.Init.Period            = 49;       // 50
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim6)!=HAL_OK) while(1);
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig)!=HAL_OK) while(1);
+}
+
+/* ===== DAC CH1 triggered by TIM6 TRGO ===== */
+static void MX_DAC_Init(void){
+  DAC_ChannelConfTypeDef sConfig = {0};
+  hdac.Instance = DAC;
+  if (HAL_DAC_Init(&hdac)!=HAL_OK) while(1);
+  sConfig.DAC_Trigger      = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1)!=HAL_OK) while(1);
+}
+
+/* ===== DMA: priorizar Stream5 (DAC1) ===== */
+static void MX_DMA_Init(void){
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  /* Prioridad más alta para evitar underruns */
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+
+  /* Opcional: baja SysTick si interfiere */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 2, 0);
+}
+
+/* ===== GPIO ===== */
+static void MX_GPIO_Init(void){
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  /* PA4 en analógico queda configurado por CubeMX al generar el .ioc */
+}
+
+/* Error handler simple */
+void Error_Handler(void){ __disable_irq(); while(1){} }

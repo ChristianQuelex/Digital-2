@@ -1,0 +1,17 @@
+../FATFS/Target/user_diskio.c:37:20:CS_LOW	8	static
+../FATFS/Target/user_diskio.c:38:20:CS_HIGH	8	static
+../FATFS/Target/user_diskio.c:40:13:ulog	16	static
+../FATFS/Target/user_diskio.c:43:13:ulog_hex	56	static
+../FATFS/Target/user_diskio.c:49:17:sd_spi_tx	16	static
+../FATFS/Target/user_diskio.c:50:17:sd_spi_rx	16	static
+../FATFS/Target/user_diskio.c:51:17:sd_spi_txrx	32	static
+../FATFS/Target/user_diskio.c:53:13:sd_send_dummy_clocks	24	static
+../FATFS/Target/user_diskio.c:55:12:sd_wait_ready	24	static
+../FATFS/Target/user_diskio.c:62:16:sd_send_cmd	32	static
+../FATFS/Target/user_diskio.c:85:12:sd_rcvr_datablock	24	static
+../FATFS/Target/user_diskio.c:99:12:sd_xmit_datablock	24	static
+../FATFS/Target/user_diskio.c:113:9:USER_initialize	40	static
+../FATFS/Target/user_diskio.c:190:9:USER_status	16	static
+../FATFS/Target/user_diskio.c:196:9:USER_read	32	static
+../FATFS/Target/user_diskio.c:222:9:USER_write	32	static
+../FATFS/Target/user_diskio.c:249:9:USER_ioctl	24	static

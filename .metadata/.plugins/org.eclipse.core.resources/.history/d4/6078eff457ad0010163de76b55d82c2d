@@ -1,0 +1,76 @@
+#include "sd_storage.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+static FATFS s_fs;
+static uint8_t s_mounted = 0;
+
+/* (CS lo maneja HAL en el driver diskio; aquí solo montamos/IO FatFS) */
+FRESULT SD_InitAndMount(void)
+{
+  FRESULT fr = f_mount(&s_fs, "0:", 1);
+  if (fr == FR_OK) s_mounted = 1;
+  return fr;
+}
+
+FRESULT SD_LoadMelodyCSV(const char *path, Note *mel, uint32_t max_notes, uint32_t *out_len)
+{
+  if (!s_mounted) return FR_NOT_READY;
+  if (!path || !mel || max_notes == 0) return FR_INVALID_OBJECT;
+
+  FIL f; FRESULT fr = f_open(&f, path, FA_READ);
+  if (fr != FR_OK) return fr;
+
+  char line[64]; UINT br = 0; uint32_t n = 0;
+  for (;;) {
+    int idx = 0;
+    for (;;) {
+      char c;
+      fr = f_read(&f, &c, 1, &br);
+      if (fr != FR_OK) { f_close(&f); return fr; }
+      if (br == 0) { if (idx == 0) goto done; line[idx] = '\0'; break; }
+      if (c == '\r') continue;
+      if (c == '\n') { line[idx] = '\0'; break; }
+      if (idx < (int)sizeof(line)-1) line[idx++] = c;
+    }
+    if (idx == 0) continue;
+
+    char *comma = strchr(line, ',');
+    if (!comma) continue;
+    *comma = '\0';
+    float freq = strtof(line, NULL);
+    long  dur  = strtol(comma+1, NULL, 10);
+
+    if (n < max_notes) {
+      mel[n].freq_hz   = freq;
+      mel[n].dur_beats = (uint8_t)((dur < 0) ? 0 : (dur > 255 ? 255 : dur));
+      n++;
+    }
+  }
+done:
+  f_close(&f);
+  if (out_len) *out_len = n;
+  return FR_OK;
+}
+
+FRESULT SD_SaveMelodyCSV(const char *path, const Note *mel, uint32_t count)
+{
+  if (!s_mounted) return FR_NOT_READY;
+  if (!path || !mel) return FR_INVALID_OBJECT;
+
+  FRESULT fr = f_mkdir("0:/music");
+  if (fr != FR_OK && fr != FR_EXIST) return fr;
+
+  FIL f; UINT bw = 0; char buf[64];
+  fr = f_open(&f, path, FA_WRITE | FA_CREATE_ALWAYS);
+  if (fr != FR_OK) return fr;
+
+  for (uint32_t i = 0; i < count; ++i) {
+    int len = snprintf(buf, sizeof(buf), "%.3f,%u\r\n", mel[i].freq_hz, (unsigned)mel[i].dur_beats);
+    fr = f_write(&f, buf, (UINT)len, &bw);
+    if (fr != FR_OK || bw != (UINT)len) { f_close(&f); return FR_DISK_ERR; }
+  }
+  f_close(&f);
+  return FR_OK;
+}

@@ -1,0 +1,98 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.h
+  * @brief          : Header for main.c file.
+  *                   This file contains the common defines of the application.
+  ******************************************************************************
+  * @attention
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+#ifndef __MAIN_H
+#define __MAIN_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx_hal.h"
+
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
+
+/* Nota simple: freq en Hz (0 = silencio) y duración en "beats" (negra=4) */
+typedef struct {
+  float    freq_hz;
+  uint8_t  dur_beats;
+} Note;
+
+/* Extern de melodías embebidas opcionales (fallback) */
+extern const Note IMPERIAL_MARCH[];
+extern const unsigned IMPERIAL_MARCH_LEN;
+
+/* USER CODE END ET */
+
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+/* USER CODE END EC */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
+void Error_Handler(void);
+
+/* Private defines -----------------------------------------------------------*/
+#define B1_Pin             GPIO_PIN_13
+#define B1_GPIO_Port       GPIOC
+
+#define USART_TX_Pin       GPIO_PIN_2
+#define USART_TX_GPIO_Port GPIOA
+#define USART_RX_Pin       GPIO_PIN_3
+#define USART_RX_GPIO_Port GPIOA
+
+#define LD2_Pin            GPIO_PIN_5
+#define LD2_GPIO_Port      GPIOA
+
+#define SD_CS_Pin          GPIO_PIN_12
+#define SD_CS_GPIO_Port    GPIOB
+#define SPI2_SCK_Pin       GPIO_PIN_13
+#define SPI2_SCK_GPIO_Port GPIOB
+#define SPI2_MISO_Pin      GPIO_PIN_14
+#define SPI2_MISO_GPIO_Port GPIOB
+#define SPI2_MOSI_Pin      GPIO_PIN_15
+#define SPI2_MOSI_GPIO_Port GPIOB
+
+#define TMS_Pin            GPIO_PIN_13
+#define TMS_GPIO_Port      GPIOA
+#define TCK_Pin            GPIO_PIN_14
+#define TCK_GPIO_Port      GPIOA
+#define SWO_Pin            GPIO_PIN_3
+#define SWO_GPIO_Port      GPIOB
+
+/* === NUEVOS PINES DE DISPARO EN PC2 / PC3 / PC4 === */
+#define TRIG1_Pin          GPIO_PIN_2   /* PC2 */
+#define TRIG1_GPIO_Port    GPIOC
+#define TRIG2_Pin          GPIO_PIN_3   /* PC3 */
+#define TRIG2_GPIO_Port    GPIOC
+#define TRIG3_Pin          GPIO_PIN_4   /* PC4 */
+#define TRIG3_GPIO_Port    GPIOC
+/* ================================================== */
+
+/* USER CODE BEGIN Private defines */
+/* USER CODE END Private defines */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __MAIN_H */

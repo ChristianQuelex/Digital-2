@@ -1,0 +1,417 @@
+/* ============================================================================
+ *  Audio por DAC con TIM6+DMA (20 kHz): Wavetable Trompeta + ADSR + Vibrato
+ *  - DAC OUT1: PA4 (Nucleo-F446RE)
+ *  - Reloj TIM6: 84 MHz (APB1 x2)
+ *  - Fs = 20 kHz -> TIM6 (PSC=83, ARR=49)
+ *  - Usa pitches.h / pitches.c para melodías (Note[]).
+ * ============================================================================ */
+
+#include "main.h"
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include "pitches.h"
+
+/* ===== Selección de timbre (0 = seno puro, 1 = trompeta aditiva) ===== */
+#define TIMBRE_TRUMPET   1
+
+/* ===== Configuración de audio ===== */
+#define AUDIO_FS_HZ        20000U        // Frecuencia de muestreo DAC
+#define WT_SIZE            256U          // Tamaño de wavetable
+#define AUDIO_BUF_SAMPLES  512U          // Doble buffer
+#define DAC_MAX_12B        4095U
+#define DAC_OFFSET_12B     2048U
+
+/* ===== Wavetable y buffer DMA ===== */
+static uint16_t audio_buf[AUDIO_BUF_SAMPLES];
+static uint16_t wavetable[WT_SIZE];
+
+/* ===== Fase del oscilador (Q16.16) ===== */
+static uint32_t phase_q16 = 0;
+static uint32_t phase_inc_q16 = 0;
+
+/* ===== Estado general ===== */
+static float    current_freq_hz = 0.0f;
+static uint8_t  audio_running   = 0;
+
+/* ===== Periféricos HAL (generados por CubeMX) ===== */
+DAC_HandleTypeDef hdac;
+DMA_HandleTypeDef hdma_dac1;
+TIM_HandleTypeDef htim6;
+UART_HandleTypeDef huart2;
+
+/* ===== Prototipos de init (HAL/CubeMX) ===== */
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_DAC_Init(void);
+static void MX_TIM6_Init(void);
+
+/* ============================================================================
+ * WAVETABLES
+ * ==========================================================================*/
+static void WT_InitSine(void) {
+  for (uint32_t i = 0; i < WT_SIZE; ++i) {
+    float s = sinf(2.0f * 3.14159265359f * (float)i / (float)WT_SIZE);
+    uint16_t v = (uint16_t)((s * 0.49f + 0.5f) * DAC_MAX_12B);
+    wavetable[i] = v;
+  }
+}
+
+/* Tabla “trompeta” aditiva (armónicos y brillo ajustable) */
+static void WT_InitTrumpet(float BRIGHTNESS) {
+  const float H[8] = { 1.00f, 0.78f, 0.60f, 0.45f, 0.30f, 0.18f, 0.12f, 0.08f };
+  if (BRIGHTNESS < 0.4f) BRIGHTNESS = 0.4f;
+  if (BRIGHTNESS > 1.4f) BRIGHTNESS = 1.4f;
+
+  float maxv = 0.0f;
+  static float tmp[WT_SIZE];
+  for (uint32_t i = 0; i < WT_SIZE; ++i) tmp[i] = 0.0f;
+
+  for (uint32_t k = 1; k <= 8; ++k) {
+    float Ak = H[k-1] * (k == 1 ? 1.0f : BRIGHTNESS);
+    for (uint32_t n = 0; n < WT_SIZE; ++n) {
+      float ang = 2.0f * 3.14159265359f * (float)k * (float)n / (float)WT_SIZE;
+      tmp[n] += Ak * sinf(ang);
+    }
+  }
+
+  for (uint32_t n = 0; n < WT_SIZE; ++n) {
+    float a = fabsf(tmp[n]);
+    if (a > maxv) maxv = a;
+  }
+  if (maxv < 1e-6f) maxv = 1.0f;
+
+  for (uint32_t n = 0; n < WT_SIZE; ++n) {
+    float s = tmp[n] / maxv; // [-1..1]
+    uint16_t v = (uint16_t)((s * 0.49f + 0.5f) * DAC_MAX_12B);
+    wavetable[n] = v;
+  }
+}
+
+/* ============================================================================
+ * FRECUENCIA Y FASE
+ * ==========================================================================*/
+static inline void Audio_SetFrequency(float freq_hz) {
+  current_freq_hz = freq_hz;
+  if (freq_hz <= 0.0f) {
+    phase_inc_q16 = 0;
+    return;
+  }
+  float step = (freq_hz * (float)WT_SIZE) / (float)AUDIO_FS_HZ;
+  phase_inc_q16 = (uint32_t)(step * 65536.0f);
+}
+
+/* ============================================================================
+ * ADSR
+ * ==========================================================================*/
+typedef enum { ENV_IDLE, ENV_ATTACK, ENV_DECAY, ENV_SUSTAIN, ENV_RELEASE } EnvPhase;
+
+typedef struct {
+  uint16_t A_ms;    // ataque
+  uint16_t D_ms;    // decay
+  float    S_lvl;   // sustain [0..1]
+  uint16_t R_ms;    // release
+
+  EnvPhase phase;
+  float    env;
+  uint32_t tcount;
+} ADSR;
+
+/* Trompeta típica: ataque rápido, sustain ~0.7, release corto */
+static ADSR adsr = { .A_ms=12, .D_ms=160, .S_lvl=0.72f, .R_ms=120, .phase=ENV_IDLE, .env=0.0f, .tcount=0 };
+
+static inline uint32_t ms_to_samples(uint16_t ms) { return (AUDIO_FS_HZ * (uint32_t)ms) / 1000U; }
+
+static inline float ADSR_Step(void) {
+  switch (adsr.phase) {
+    case ENV_ATTACK: {
+      uint32_t A = ms_to_samples(adsr.A_ms);
+      if (A==0) { adsr.env=1.0f; adsr.phase=ENV_DECAY; adsr.tcount=0; break; }
+      adsr.env = (float)adsr.tcount / (float)A;
+      if (++adsr.tcount >= A) { adsr.phase = ENV_DECAY; adsr.tcount=0; adsr.env=1.0f; }
+    } break;
+
+    case ENV_DECAY: {
+      uint32_t D = ms_to_samples(adsr.D_ms);
+      if (D==0) { adsr.env = adsr.S_lvl; adsr.phase=ENV_SUSTAIN; break; }
+      float a = 1.0f - (float)adsr.tcount / (float)D; // 1→0
+      adsr.env = adsr.S_lvl + (1.0f - adsr.S_lvl) * a;
+      if (++adsr.tcount >= D) { adsr.phase=ENV_SUSTAIN; adsr.env=adsr.S_lvl; }
+    } break;
+
+    case ENV_SUSTAIN:
+      adsr.env = adsr.S_lvl;
+      break;
+
+    case ENV_RELEASE: {
+      uint32_t R = ms_to_samples(adsr.R_ms);
+      if (R==0) { adsr.env=0.0f; adsr.phase=ENV_IDLE; break; }
+      float a = 1.0f - (float)adsr.tcount / (float)R;
+      adsr.env = adsr.env * a;
+      if (++adsr.tcount >= R) { adsr.env=0.0f; adsr.phase=ENV_IDLE; }
+    } break;
+
+    case ENV_IDLE:
+    default:
+      adsr.env = 0.0f;
+      break;
+  }
+  return adsr.env;
+}
+
+static inline void ADSR_NoteOn(void)  { adsr.phase=ENV_ATTACK; adsr.tcount=0; }
+static inline void ADSR_NoteOff(void) { adsr.phase=ENV_RELEASE; adsr.tcount=0; }
+
+/* ============================================================================
+ * VIBRATO (LFO senoidal en cents)
+ * ==========================================================================*/
+typedef struct {
+  float  freq_hz;       // ~5–6 Hz
+  float  depth_cents;   // ±20 cents ≈ 1.2%
+  uint32_t lfo_phase_q16;
+  uint32_t lfo_inc_q16;
+} Vibrato;
+
+static Vibrato vib = { .freq_hz=5.5f, .depth_cents=20.0f, .lfo_phase_q16=0, .lfo_inc_q16=0 };
+
+static inline void Vibrato_Setup(void) {
+  float step = vib.freq_hz / (float)AUDIO_FS_HZ;     // ciclos por muestra
+  vib.lfo_inc_q16 = (uint32_t)(step * 65536.0f);
+  vib.lfo_phase_q16 = 0;
+}
+
+static inline float Vibrato_Step(void) {
+  vib.lfo_phase_q16 += vib.lfo_inc_q16;
+  uint32_t ph = vib.lfo_phase_q16 >> 16; // 0..65535
+  float ang = 2.0f * 3.14159265359f * (float)ph / 65536.0f;
+  return sinf(ang); // [-1..1]
+}
+
+/* 2^(cents/1200) */
+static inline float cents_to_ratio(float cents) {
+  return powf(2.0f, cents / 1200.0f);
+}
+
+/* ============================================================================
+ * Audio Engine (Inicio/Paro y relleno)
+ * ==========================================================================*/
+static void Audio_Start(void) {
+  if (audio_running) return;
+
+  /* Selecciona wavetable */
+#if TIMBRE_TRUMPET
+  WT_InitTrumpet(1.05f);      // 1.0–1.2 más brillante, 0.8 más oscuro
+#else
+  WT_InitSine();
+#endif
+
+  Vibrato_Setup();
+  phase_q16 = 0;
+
+  /* Prellenar buffer con la nota actual (o silencio si freq=0) */
+  for (uint32_t i = 0; i < AUDIO_BUF_SAMPLES; ++i) {
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE - 1);
+    audio_buf[i] = wavetable[idx];
+    phase_q16 += phase_inc_q16;
+  }
+
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)audio_buf, AUDIO_BUF_SAMPLES, DAC_ALIGN_12B_R);
+  HAL_TIM_Base_Start(&htim6);
+
+  audio_running = 1;
+}
+
+static void Audio_Stop(void) {
+  if (!audio_running) return;
+  HAL_TIM_Base_Stop(&htim6);
+  HAL_DAC_Stop_DMA(&hdac, DAC_CHANNEL_1);
+  HAL_DAC_Stop(&hdac, DAC_CHANNEL_1);
+  audio_running = 0;
+}
+
+/* Rellena mitad de buffer aplicando Vibrato + ADSR */
+static void FillHalf(uint32_t offset, uint32_t len) {
+  for (uint32_t i = 0; i < len; ++i) {
+    /* Vibrato sobre la frecuencia base */
+    float lfo = Vibrato_Step(); // [-1..1]
+    float cents = vib.depth_cents * lfo;
+    float ratio = cents_to_ratio(cents);
+    uint32_t dyn_inc = (uint32_t)((float)phase_inc_q16 * ratio);
+
+    /* Índice y envolvente */
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE - 1);
+    float env = ADSR_Step();         // [0..1]
+    uint16_t raw = wavetable[idx];
+
+    /* Aplica envolvente alrededor del offset DC */
+    float s = ((float)raw - (float)DAC_OFFSET_12B) * env + (float)DAC_OFFSET_12B;
+    if (s < 0.0f) s = 0.0f; else if (s > DAC_MAX_12B) s = DAC_MAX_12B;
+
+    audio_buf[offset + i] = (uint16_t)s;
+    phase_q16 += dyn_inc;
+  }
+}
+
+/* Callbacks DMA de DAC CH1 (mitad/fin) */
+void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* hdacx) { (void)hdacx; FillHalf(0, AUDIO_BUF_SAMPLES/2); }
+void HAL_DAC_ConvCpltCallbackCh1    (DAC_HandleTypeDef* hdacx) { (void)hdacx; FillHalf(AUDIO_BUF_SAMPLES/2, AUDIO_BUF_SAMPLES/2); }
+
+/* ============================================================================
+ * Player por notas (bloqueante sencillo)
+ * ==========================================================================*/
+static void PlayNoteHz_Block(float freq_hz, uint32_t dur_ms) {
+  Audio_SetFrequency(freq_hz);
+  if (!audio_running) Audio_Start();
+  ADSR_NoteOn();
+  HAL_Delay(dur_ms);          // sostén
+  ADSR_NoteOff();
+  HAL_Delay(adsr.R_ms);       // deja caer el release
+}
+
+static void PlayRest_Block(uint32_t dur_ms) {
+  Audio_SetFrequency(0.0f);
+  ADSR_NoteOff();
+  HAL_Delay(dur_ms);
+}
+
+/* Reproduce melodía Note[] usando tempo (ms por “beat” con negra=4) */
+static void PlayMelody(const Note* mel, uint32_t count, uint32_t tempo_ms_per_beat) {
+  for (uint32_t i = 0; i < count; ++i) {
+    float freq = mel[i].freq_hz;
+    /* dur_beats usa convención: 4=negra, 8=blanca (el doble), 2=corchea (la mitad), etc. */
+    uint32_t dur = (mel[i].dur_beats * tempo_ms_per_beat) / 4U;
+    if (freq > 0.0f) PlayNoteHz_Block(freq, dur);
+    else             PlayRest_Block(dur);
+
+    /* pequeña separación entre notas (staccato ligero) */
+    HAL_Delay(dur / 10U);
+  }
+}
+
+/* ============================================================================
+ * main()
+ * ==========================================================================*/
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART2_UART_Init();
+  MX_DAC_Init();
+  MX_TIM6_Init();
+
+  /* Arranca con silencio (frecuencia 0) y enciende engine */
+  Audio_SetFrequency(0.0f);
+  Audio_Start();
+
+  /* DEMO: reproduce Happy Birthday (pitches.c) a ~120 bpm (negra ≈ 500 ms) */
+  const uint32_t tempo_ms = 500;
+  PlayMelody(HAPPY_BIRTHDAY, HAPPY_BIRTHDAY_LEN, tempo_ms);
+
+  /* Si quieres repetir, descomenta:
+     while (1) { PlayMelody(HAPPY_BIRTHDAY, HAPPY_BIRTHDAY_LEN, tempo_ms); HAL_Delay(1000); }
+  */
+
+  /* o deja en idle */
+  while (1) {
+    HAL_Delay(1000);
+  }
+}
+
+/* ============================================================================
+ * Inits HAL (igual que antes; TIM6 queda configurado a Fs=20 kHz)
+ * ==========================================================================*/
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 16;
+  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) Error_Handler();
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;   // 84 MHz
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;          // 84 MHz
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;           // 42 MHz (TIM6 x2 = 84 MHz)
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;           // 84 MHz
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) Error_Handler();
+}
+
+static void MX_DAC_Init(void)
+{
+  DAC_ChannelConfTypeDef sConfig = {0};
+  hdac.Instance = DAC;
+  if (HAL_DAC_Init(&hdac) != HAL_OK) Error_Handler();
+
+  sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK) Error_Handler();
+}
+
+static void MX_TIM6_Init(void)
+{
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 83;                          // 84 MHz / (83+1) = 1 MHz
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 49;                             // 1 MHz / (49+1) = 20 kHz
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK) Error_Handler();
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK) Error_Handler();
+}
+
+static void MX_USART2_UART_Init(void)
+{
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK) Error_Handler();
+}
+
+static void MX_DMA_Init(void)
+{
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+}
+
+static void MX_GPIO_Init(void)
+{
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  /* PA4 (DAC_OUT1) en modo Analog: CubeMX lo deja correctamente */
+}
+
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1) {}
+}

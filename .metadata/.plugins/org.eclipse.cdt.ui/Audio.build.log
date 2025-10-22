@@ -1,0 +1,877 @@
+00:18:33 **** Incremental Build of configuration Debug for project Audio ****
+make -j12 all 
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/diskio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/diskio.d" -MT"Middlewares/Third_Party/FatFs/src/diskio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/diskio.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/ff.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/ff.d" -MT"Middlewares/Third_Party/FatFs/src/ff.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/ff.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/ff_gen_drv.d" -MT"Middlewares/Third_Party/FatFs/src/ff_gen_drv.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/ff_gen_drv.o"
+arm-none-eabi-gcc "../FATFS/Target/user_diskio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FATFS/Target/user_diskio.d" -MT"FATFS/Target/user_diskio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "FATFS/Target/user_diskio.o"
+arm-none-eabi-gcc "../FATFS/App/fatfs.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FATFS/App/fatfs.d" -MT"FATFS/App/fatfs.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "FATFS/App/fatfs.o"
+arm-none-eabi-gcc "../Core/Src/fatfs.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fatfs.d" -MT"Core/Src/fatfs.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fatfs.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/sd_storage.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sd_storage.d" -MT"Core/Src/sd_storage.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sd_storage.o"
+../Middlewares/Third_Party/FatFs/src/ff.c:32:2: error: #error Wrong include file (ff.h).
+   32 | #error Wrong include file (ff.h).
+      |  ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:268:2: error: #error Unknown code page
+  268 | #error Unknown code page
+      |  ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:483:2: error: #error Wrong sector size configuration
+  483 | #error Wrong sector size configuration
+      |  ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:531:2: error: #error Wrong _VOLUMES setting
+  531 | #error Wrong _VOLUMES setting
+      |  ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:533:8: error: unknown type name 'FATFS'
+  533 | static FATFS *FatFs[_VOLUMES];  /* Pointer to the file system objects (logical drives) */
+      |        ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:533:21: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+  533 | static FATFS *FatFs[_VOLUMES];  /* Pointer to the file system objects (logical drives) */
+      |                     ^~~~~~~~
+      |                     FF_VOLUMES
+../Middlewares/Third_Party/FatFs/src/ff.c:883:1: error: unknown type name 'FRESULT'
+  883 | FRESULT sync_window (   /* Returns FR_OK or FR_DISK_ERROR */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:884:9: error: unknown type name 'FATFS'
+  884 |         FATFS* fs                       /* File system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:912:1: error: unknown type name 'FRESULT'
+  912 | FRESULT move_window (   /* Returns FR_OK or FR_DISK_ERROR */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:913:9: error: unknown type name 'FATFS'
+  913 |         FATFS* fs,                      /* File system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:944:1: error: unknown type name 'FRESULT'
+  944 | FRESULT sync_fs (       /* FR_OK:succeeded, !=0:error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:945:9: error: unknown type name 'FATFS'
+  945 |         FATFS* fs               /* File system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:984:9: error: unknown type name 'FATFS'
+  984 |         FATFS* fs,              /* File system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1002:9: error: unknown type name '_FDID'
+ 1002 |         _FDID* obj,     /* Corresponding object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1081:1: error: unknown type name 'FRESULT'
+ 1081 | FRESULT put_fat (       /* FR_OK(0):succeeded, !=0:error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1082:9: error: unknown type name 'FATFS'
+ 1082 |         FATFS* fs,              /* Corresponding file system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1271:1: error: unknown type name 'FRESULT'
+ 1271 | FRESULT remove_chain (  /* FR_OK(0):succeeded, !=0:error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1272:9: error: unknown type name '_FDID'
+ 1272 |         _FDID* obj,                     /* Corresponding object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1352:9: error: unknown type name '_FDID'
+ 1352 |         _FDID* obj,                     /* Corresponding object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1470:1: error: unknown type name 'FRESULT'
+ 1470 | FRESULT dir_sdi (       /* FR_OK(0):succeeded, !=0:error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1471:9: error: unknown type name 'DIR'
+ 1471 |         DIR* dp,                /* Pointer to directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1519:1: error: unknown type name 'FRESULT'
+ 1519 | FRESULT dir_next (      /* FR_OK(0):succeeded, FR_NO_FILE:End of table, FR_DENIED:Could not stretch */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1520:9: error: unknown type name 'DIR'
+ 1520 |         DIR* dp,                /* Pointer to the directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1589:1: error: unknown type name 'FRESULT'
+ 1589 | FRESULT dir_alloc (     /* FR_OK(0):succeeded, !=0:error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1590:9: error: unknown type name 'DIR'
+ 1590 |         DIR* dp,                /* Pointer to the directory object */
+      |         ^~~
+In file included from ../Middlewares/Third_Party/FatFs/src/diskio.c:15:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:57:42: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+   57 |   uint8_t                 is_initialized[_VOLUMES];
+      |                                          ^~~~~~~~
+      |                                          FF_VOLUMES
+../Middlewares/Third_Party/FatFs/src/ff.c:1633:9: error: unknown type name 'FATFS'
+ 1633 |         FATFS* fs,              /* Pointer to the fs object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:1651:9: error: unknown type name 'FATFS'
+ 1651 |         FATFS* fs,      /* Pointer to the fs object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2131:1: error: unknown type name 'FRESULT'
+ 2131 | FRESULT dir_read (
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2132:9: error: unknown type name 'DIR'
+ 2132 |         DIR* dp,                /* Pointer to the directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2210:1: error: unknown type name 'FRESULT'
+ 2210 | FRESULT dir_find (      /* FR_OK(0):succeeded, !=0:error */
+      | ^~~~~~~
+In file included from ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c:19:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:57:42: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+   57 |   uint8_t                 is_initialized[_VOLUMES];
+      |                                          ^~~~~~~~
+      |                                          FF_VOLUMES
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c: In function 'FATFS_UnLinkDriverEx':
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c:82:11: warning: variable 'DiskNum' set but not used [-Wunused-but-set-variable]
+   82 |   uint8_t DiskNum = 0;
+      |           ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2211:9: error: unknown type name 'DIR'
+ 2211 |         DIR* dp                 /* Pointer to the directory object with the file name */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2292:1: error: unknown type name 'FRESULT'
+ 2292 | FRESULT dir_register (  /* FR_OK:succeeded, FR_DENIED:no free entry or too many SFN collision, FR_DISK_ERR:disk error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2293:9: error: unknown type name 'DIR'
+ 2293 |         DIR* dp                         /* Target directory with object name to be created */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2396:1: error: unknown type name 'FRESULT'
+ 2396 | FRESULT dir_remove (    /* FR_OK:Succeeded, FR_DISK_ERR:A disk error */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2397:9: error: unknown type name 'DIR'
+ 2397 |         DIR* dp                         /* Directory object pointing the entry to be removed */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2445:9: error: unknown type name 'DIR'
+ 2445 |         DIR* dp,                        /* Pointer to the directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2446:9: error: unknown type name 'FILINFO'
+ 2446 |         FILINFO* fno            /* Pointer to the file information to be filled */
+      |         ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2618:1: error: unknown type name 'FRESULT'
+ 2618 | FRESULT create_name (   /* FR_OK: successful, FR_INVALID_NAME: could not create */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2619:9: error: unknown type name 'DIR'
+ 2619 |         DIR* dp,                        /* Pointer to the directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2620:15: error: unknown type name 'TCHAR'
+ 2620 |         const TCHAR** path      /* Pointer to pointer to the segment in the path string */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2813:1: error: unknown type name 'FRESULT'
+ 2813 | FRESULT follow_path (   /* FR_OK(0): successful, !=0: error code */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2814:9: error: unknown type name 'DIR'
+ 2814 |         DIR* dp,                        /* Directory object to return last directory and found object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2815:15: error: unknown type name 'TCHAR'
+ 2815 |         const TCHAR* path       /* Full-path string to find a file or directory */
+      |               ^~~~~
+In file included from ../FATFS/App/fatfs.h:27,
+                 from ../FATFS/App/fatfs.c:19:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:57:42: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+   57 |   uint8_t                 is_initialized[_VOLUMES];
+      |                                          ^~~~~~~~
+      |                                          FF_VOLUMES
+../Middlewares/Third_Party/FatFs/src/ff.c:2905:15: error: unknown type name 'TCHAR'
+ 2905 |         const TCHAR** path      /* Pointer to pointer to the path name */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: In function 'get_ldnumber':
+../Middlewares/Third_Party/FatFs/src/ff.c:2908:15: error: unknown type name 'TCHAR'
+ 2908 |         const TCHAR *tp, *tt;
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2920:48: error: '_USE_LFN' undeclared (first use in this function); did you mean 'FF_USE_LFN'?
+ 2920 |                 for (tt = *path; (UINT)*tt >= (_USE_LFN ? ' ' : '!') && *tt != ':'; tt++) ;     /* Find ':' in the path */
+      |                                                ^~~~~~~~
+      |                                                FF_USE_LFN
+../Middlewares/Third_Party/FatFs/src/ff.c:2920:48: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ../FATFS/Target/user_diskio.c:1:
+../FATFS/Target/user_diskio.h:35:8: error: unknown type name 'Diskio_drvTypeDef'
+   35 | extern Diskio_drvTypeDef  USER_Driver;
+      |        ^~~~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: At top level:
+../Middlewares/Third_Party/FatFs/src/ff.c:2966:9: error: unknown type name 'FATFS'
+ 2966 |         FATFS* fs,      /* File system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2993:1: error: unknown type name 'FRESULT'
+ 2993 | FRESULT find_volume (   /* FR_OK(0): successful, !=0: any error occurred */
+      | ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2994:15: error: unknown type name 'TCHAR'
+ 2994 |         const TCHAR** path,     /* Pointer to pointer to the path name (drive number) */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:2995:9: error: unknown type name 'FATFS'
+ 2995 |         FATFS** rfs,            /* Pointer to pointer to the found file system object */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3216:1: error: unknown type name 'FRESULT'
+ 3216 | FRESULT validate (      /* Returns FR_OK or FR_INVALID_OBJECT */
+      | ^~~~~~~
+../FATFS/App/fatfs.h:36:8: error: unknown type name 'FATFS'
+   36 | extern FATFS USERFatFS; /* File system object for USER logical drive */
+      |        ^~~~~
+../FATFS/App/fatfs.h:37:8: error: unknown type name 'FIL'
+   37 | extern FIL USERFile; /* File object for USER */
+      |        ^~~
+../FATFS/App/fatfs.c:23:1: error: unknown type name 'FATFS'
+   23 | FATFS USERFatFS;    /* File system object for USER logical drive */
+      | ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3217:9: error: unknown type name '_FDID'
+ 3217 |         _FDID* obj,             /* Pointer to the _OBJ, the 1st member in the FIL/DIR object, to check validity */
+      |         ^~~~~
+../FATFS/App/fatfs.c:24:1: error: unknown type name 'FIL'
+   24 | FIL USERFile;       /* File object for USER */
+      | ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3218:9: error: unknown type name 'FATFS'
+ 3218 |         FATFS** fs              /* Pointer to pointer to the owner file system object to return */
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3260:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3260 | FRESULT f_mount (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:3261:9: error: unknown type name 'FATFS'
+ 3261 |         FATFS* fs,                      /* Pointer to the file system object (NULL:unmount)*/
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3262:15: error: unknown type name 'TCHAR'
+ 3262 |         const TCHAR* path,      /* Logical drive number to be mounted/unmounted */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3308:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3308 | FRESULT f_open (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:3309:9: error: unknown type name 'FIL'
+ 3309 |         FIL* fp,                        /* Pointer to the blank file object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3310:15: error: unknown type name 'TCHAR'
+ 3310 |         const TCHAR* path,      /* Pointer to the file name */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3511:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3511 | FRESULT f_read (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:3512:9: error: unknown type name 'FIL'
+ 3512 |         FIL* fp,        /* Pointer to the file object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3611:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3611 | FRESULT f_write (
+      | ^~~~~~~
+      | DRESULT
+make: *** [Middlewares/Third_Party/FatFs/src/subdir.mk:25: Middlewares/Third_Party/FatFs/src/diskio.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Middlewares/Third_Party/FatFs/src/ff.c:3612:9: error: unknown type name 'FIL'
+ 3612 |         FIL* fp,                        /* Pointer to the file object */
+      |         ^~~
+make: *** [Middlewares/Third_Party/FatFs/src/subdir.mk:25: Middlewares/Third_Party/FatFs/src/ff_gen_drv.o] Error 1
+../Middlewares/Third_Party/FatFs/src/ff.c:3732:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3732 | FRESULT f_sync (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:3733:9: error: unknown type name 'FIL'
+ 3733 |         FIL* fp         /* Pointer to the file object */
+      |         ^~~
+In file included from ../Core/Inc/fatfs.h:19,
+                 from ../Core/Src/fatfs.c:1:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:57:42: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+   57 |   uint8_t                 is_initialized[_VOLUMES];
+      |                                          ^~~~~~~~
+      |                                          FF_VOLUMES
+../Core/Inc/fatfs.h:24:8: error: unknown type name 'FATFS'
+   24 | extern FATFS USERFatFS;     /* File system object for USER logical drive */
+      |        ^~~~~
+../Core/Inc/fatfs.h:25:8: error: unknown type name 'FIL'
+   25 | extern FIL USERFile;        /* File object for USER */
+      |        ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:3813:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 3813 | FRESULT f_close (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:3814:9: error: unknown type name 'FIL'
+ 3814 |         FIL* fp         /* Pointer to the file object to be closed */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4001:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4001 | FRESULT f_lseek (
+      | ^~~~~~~
+      | DRESULT
+../Core/Src/fatfs.c:7:1: error: unknown type name 'FATFS'
+    7 | FATFS USERFatFS;
+      | ^~~~~
+../Core/Src/fatfs.c:8:1: error: unknown type name 'FIL'
+    8 | FIL USERFile;
+      | ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4002:9: error: unknown type name 'FIL'
+ 4002 |         FIL* fp,                /* Pointer to the file object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4003:9: error: unknown type name 'FSIZE_t'
+ 4003 |         FSIZE_t ofs             /* File pointer from top of file */
+      |         ^~~~~~~
+make: *** [FATFS/App/subdir.mk:19: FATFS/App/fatfs.o] Error 1
+../Middlewares/Third_Party/FatFs/src/ff.c:4162:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4162 | FRESULT f_opendir (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4163:9: error: unknown type name 'DIR'
+ 4163 |         DIR* dp,                        /* Pointer to directory object to create */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4164:15: error: unknown type name 'TCHAR'
+ 4164 |         const TCHAR* path       /* Pointer to the directory path */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4232:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4232 | FRESULT f_closedir (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4233:9: error: unknown type name 'DIR'
+ 4233 |         DIR *dp         /* Pointer to the directory object to be closed */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4265:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4265 | FRESULT f_readdir (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4266:9: error: unknown type name 'DIR'
+ 4266 |         DIR* dp,                        /* Pointer to the open directory object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4267:9: error: unknown type name 'FILINFO'
+ 4267 |         FILINFO* fno            /* Pointer to file information to return */
+      |         ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4353:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4353 | FRESULT f_stat (
+      | ^~~~~~~
+      | DRESULT
+make: *** [Core/Src/subdir.mk:43: Core/Src/fatfs.o] Error 1
+../Middlewares/Third_Party/FatFs/src/ff.c:4354:15: error: unknown type name 'TCHAR'
+ 4354 |         const TCHAR* path,      /* Pointer to the file path */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4355:9: error: unknown type name 'FILINFO'
+ 4355 |         FILINFO* fno            /* Pointer to file information to return */
+      |         ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4388:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4388 | FRESULT f_getfree (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4389:15: error: unknown type name 'TCHAR'
+ 4389 |         const TCHAR* path,      /* Path name of the logical drive number */
+      |               ^~~~~
+In file included from ../Core/Src/sd_storage.c:1:
+../Core/Inc/sd_storage.h:19:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   19 | FRESULT SD_InitAndMount(void);
+      | ^~~~~~~
+      | REST
+../Middlewares/Third_Party/FatFs/src/ff.c:4391:9: error: unknown type name 'FATFS'
+ 4391 |         FATFS** fatfs           /* Pointer to return pointer to corresponding file system object */
+      |         ^~~~~
+../Core/Inc/sd_storage.h:20:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   20 | FRESULT SD_LoadMelodyCSV(const char *path, Note *mel, uint32_t max_notes, uint32_t *out_len);
+      | ^~~~~~~
+      | REST
+../Core/Inc/sd_storage.h:21:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   21 | FRESULT SD_SaveMelodyCSV(const char *path, const Note *mel, uint32_t count);
+      | ^~~~~~~
+      | REST
+../Middlewares/Third_Party/FatFs/src/ff.c:4475:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4475 | FRESULT f_truncate (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4476:9: error: unknown type name 'FIL'
+ 4476 |         FIL* fp         /* Pointer to the file object */
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4525:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4525 | FRESULT f_unlink (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4526:15: error: unknown type name 'TCHAR'
+ 4526 |         const TCHAR* path               /* Pointer to the file or directory path */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: In function 'f_unlink':
+../Middlewares/Third_Party/FatFs/src/ff.c:4529:9: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4529 |         FRESULT res;
+      |         ^~~~~~~
+      |         DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4530:9: error: unknown type name 'DIR'
+ 4530 |         DIR dj, sdj;
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4532:9: error: unknown type name 'FATFS'
+ 4532 |         FATFS *fs;
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4540:15: warning: implicit declaration of function 'find_volume' [-Wimplicit-function-declaration]
+ 4540 |         res = find_volume(&path, &fs, FA_WRITE);
+      |               ^~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4540:39: error: 'FA_WRITE' undeclared (first use in this function)
+ 4540 |         res = find_volume(&path, &fs, FA_WRITE);
+      |                                       ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4541:11: error: request for member 'obj' in something not a structure or union
+ 4541 |         dj.obj.fs = fs;
+      |           ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4542:20: error: 'FR_OK' undeclared (first use in this function)
+ 4542 |         if (res == FR_OK) {
+      |                    ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4544:23: warning: implicit declaration of function 'follow_path' [-Wimplicit-function-declaration]
+ 4544 |                 res = follow_path(&dj, path);           /* Follow the file path */
+      |                       ^~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4545:21: error: '_FS_RPATH' undeclared (first use in this function); did you mean 'FF_FS_RPATH'?
+ 4545 |                 if (_FS_RPATH && res == FR_OK && (dj.fn[NSFLAG] & NS_DOT)) {
+      |                     ^~~~~~~~~
+      |                     FF_FS_RPATH
+../Middlewares/Third_Party/FatFs/src/ff.c:4545:53: error: request for member 'fn' in something not a structure or union
+ 4545 |                 if (_FS_RPATH && res == FR_OK && (dj.fn[NSFLAG] & NS_DOT)) {
+      |                                                     ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4546:31: error: 'FR_INVALID_NAME' undeclared (first use in this function)
+ 4546 |                         res = FR_INVALID_NAME;                  /* Cannot remove dot entry */
+      |                               ^~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4552:31: error: request for member 'fn' in something not a structure or union
+ 4552 |                         if (dj.fn[NSFLAG] & NS_NONAME) {
+      |                               ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4555:39: error: request for member 'obj' in something not a structure or union
+ 4555 |                                 if (dj.obj.attr & AM_RDO) {
+      |                                       ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4555:51: error: 'AM_RDO' undeclared (first use in this function)
+ 4555 |                                 if (dj.obj.attr & AM_RDO) {
+      |                                                   ^~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4556:47: error: 'FR_DENIED' undeclared (first use in this function)
+ 4556 |                                         res = FR_DENIED;                /* Cannot remove R/O object */
+      |                                               ^~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4569:49: warning: implicit declaration of function 'ld_clust' [-Wimplicit-function-declaration]
+ 4569 |                                         dclst = ld_clust(fs, dj.dir);
+      |                                                 ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4569:64: error: request for member 'dir' in something not a structure or union
+ 4569 |                                         dclst = ld_clust(fs, dj.dir);
+      |                                                                ^
+../Core/Src/sd_storage.c:6:8: error: unknown type name 'FATFS'
+    6 | static FATFS s_fs;
+      |        ^~~~~
+../Core/Src/sd_storage.c:9:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+    9 | FRESULT SD_InitAndMount(void)
+      | ^~~~~~~
+      | REST
+../Core/Src/sd_storage.c: In function 'SD_InitAndMount':
+../Core/Src/sd_storage.c:12:3: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   12 |   FRESULT fr = f_mount(&s_fs, "0:", 1);
+      |   ^~~~~~~
+      |   REST
+../Core/Src/sd_storage.c:12:16: warning: implicit declaration of function 'f_mount' [-Wimplicit-function-declaration]
+   12 |   FRESULT fr = f_mount(&s_fs, "0:", 1);
+      |                ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4571:39: error: request for member 'obj' in something not a structure or union
+ 4571 |                                 if (dj.obj.attr & AM_DIR) {                     /* Is it a sub-directory? */
+      |                                       ^
+../Core/Src/sd_storage.c:13:13: error: 'FR_OK' undeclared (first use in this function)
+   13 |   if (fr == FR_OK) s_mounted = 1;
+      |             ^~~~~
+../Core/Src/sd_storage.c:13:13: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/sd_storage.c: At top level:
+../Core/Src/sd_storage.c:17:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   17 | FRESULT SD_LoadMelodyCSV(const char *path, Note *mel, uint32_t max_notes, uint32_t *out_len)
+      | ^~~~~~~
+      | REST
+../Core/Src/sd_storage.c: In function 'SD_LoadMelodyCSV':
+../Core/Src/sd_storage.c:19:26: error: 'FR_NOT_READY' undeclared (first use in this function)
+   19 |   if (!s_mounted) return FR_NOT_READY;
+      |                          ^~~~~~~~~~~~
+../Core/Src/sd_storage.c:20:47: error: 'FR_INVALID_OBJECT' undeclared (first use in this function)
+   20 |   if (!path || !mel || max_notes == 0) return FR_INVALID_OBJECT;
+      |                                               ^~~~~~~~~~~~~~~~~
+../Core/Src/sd_storage.c:22:3: error: unknown type name 'FIL'; did you mean 'FILE'?
+   22 |   FIL f; FRESULT fr = f_open(&f, path, FA_READ);
+      |   ^~~
+      |   FILE
+../Core/Src/sd_storage.c:22:10: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   22 |   FIL f; FRESULT fr = f_open(&f, path, FA_READ);
+      |          ^~~~~~~
+      |          REST
+../Core/Src/sd_storage.c:22:23: warning: implicit declaration of function 'f_open'; did you mean 'fdopen'? [-Wimplicit-function-declaration]
+   22 |   FIL f; FRESULT fr = f_open(&f, path, FA_READ);
+      |                       ^~~~~~
+      |                       fdopen
+../Core/Src/sd_storage.c:22:40: error: 'FA_READ' undeclared (first use in this function)
+   22 |   FIL f; FRESULT fr = f_open(&f, path, FA_READ);
+      |                                        ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4571:51: error: 'AM_DIR' undeclared (first use in this function); did you mean 'MAX_DIR'?
+ 4571 |                                 if (dj.obj.attr & AM_DIR) {                     /* Is it a sub-directory? */
+      |                                                   ^~~~~~
+      |                                                   MAX_DIR
+../Core/Src/sd_storage.c:23:13: error: 'FR_OK' undeclared (first use in this function)
+   23 |   if (fr != FR_OK) return fr;
+      |             ^~~~~
+../Core/Src/sd_storage.c:25:18: error: unknown type name 'UINT'
+   25 |   char line[64]; UINT br = 0; uint32_t n = 0;
+      |                  ^~~~
+../Core/Src/sd_storage.c:31:12: warning: implicit declaration of function 'f_read'; did you mean 'fread'? [-Wimplicit-function-declaration]
+   31 |       fr = f_read(&f, &c, 1, &br);
+      |            ^~~~~~
+      |            fread
+../Middlewares/Third_Party/FatFs/src/ff.c:4578:52: error: request for member 'obj' in something not a structure or union
+ 4578 |                                                 sdj.obj.fs = fs;                                                /* Open the sub-directory */
+      |                                                    ^
+../Core/Src/sd_storage.c:32:26: warning: implicit declaration of function 'f_close'; did you mean 'fclose'? [-Wimplicit-function-declaration]
+   32 |       if (fr != FR_OK) { f_close(&f); return fr; }
+      |                          ^~~~~~~
+      |                          fclose
+../Middlewares/Third_Party/FatFs/src/ff.c:4579:52: error: request for member 'obj' in something not a structure or union
+ 4579 |                                                 sdj.obj.sclust = dclst;
+      |                                                    ^
+../Core/Src/sd_storage.c: At top level:
+../Core/Src/sd_storage.c:59:1: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   59 | FRESULT SD_SaveMelodyCSV(const char *path, const Note *mel, uint32_t count)
+      | ^~~~~~~
+      | REST
+../Core/Src/sd_storage.c: In function 'SD_SaveMelodyCSV':
+../Core/Src/sd_storage.c:61:26: error: 'FR_NOT_READY' undeclared (first use in this function)
+   61 |   if (!s_mounted) return FR_NOT_READY;
+      |                          ^~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4586:55: warning: implicit declaration of function 'dir_sdi' [-Wimplicit-function-declaration]
+ 4586 |                                                 res = dir_sdi(&sdj, 0);
+      |                                                       ^~~~~~~
+../Core/Src/sd_storage.c:62:29: error: 'FR_INVALID_OBJECT' undeclared (first use in this function)
+   62 |   if (!path || !mel) return FR_INVALID_OBJECT;
+      |                             ^~~~~~~~~~~~~~~~~
+../Core/Src/sd_storage.c:64:9: warning: implicit declaration of function 'f_mkdir' [-Wimplicit-function-declaration]
+   64 |   (void)f_mkdir("0:/music"); // ignora error si ya existe
+      |         ^~~~~~~
+../Core/Src/sd_storage.c:66:3: error: unknown type name 'FIL'; did you mean 'FILE'?
+   66 |   FIL f; FRESULT fr;
+      |   ^~~
+      |   FILE
+../Middlewares/Third_Party/FatFs/src/ff.c:4588:63: warning: implicit declaration of function 'dir_read'; did you mean 'disk_read'? [-Wimplicit-function-declaration]
+ 4588 |                                                         res = dir_read(&sdj, 0);                        /* Read an item */
+      |                                                               ^~~~~~~~
+      |                                                               disk_read
+../Core/Src/sd_storage.c:66:10: error: unknown type name 'FRESULT'; did you mean 'REST'?
+   66 |   FIL f; FRESULT fr;
+      |          ^~~~~~~
+      |          REST
+../Core/Src/sd_storage.c:67:25: error: 'FA_WRITE' undeclared (first use in this function)
+   67 |   fr = f_open(&f, path, FA_WRITE | FA_CREATE_ALWAYS);
+      |                         ^~~~~~~~
+../Core/Src/sd_storage.c:67:36: error: 'FA_CREATE_ALWAYS' undeclared (first use in this function)
+   67 |   fr = f_open(&f, path, FA_WRITE | FA_CREATE_ALWAYS);
+      |                                    ^~~~~~~~~~~~~~~~
+../Core/Src/sd_storage.c:68:13: error: 'FR_OK' undeclared (first use in this function)
+   68 |   if (fr != FR_OK) return fr;
+      |             ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4590:68: error: 'FR_NO_FILE' undeclared (first use in this function)
+ 4590 |                                                         if (res == FR_NO_FILE) res = FR_OK;     /* Empty? */
+      |                                                                    ^~~~~~~~~~
+../Core/Src/sd_storage.c:70:17: error: unknown type name 'UINT'
+   70 |   char buf[64]; UINT bw = 0;
+      |                 ^~~~
+../Core/Src/sd_storage.c:74:10: warning: implicit declaration of function 'f_write'; did you mean 'fwrite'? [-Wimplicit-function-declaration]
+   74 |     fr = f_write(&f, buf, (UINT)len, &bw);
+      |          ^~~~~~~
+      |          fwrite
+../Core/Src/sd_storage.c:74:28: error: 'UINT' undeclared (first use in this function)
+   74 |     fr = f_write(&f, buf, (UINT)len, &bw);
+      |                            ^~~~
+../Core/Src/sd_storage.c:74:33: error: expected ')' before 'len'
+   74 |     fr = f_write(&f, buf, (UINT)len, &bw);
+      |                 ~               ^~~
+      |                                 )
+../Core/Src/sd_storage.c:75:36: error: expected ')' before 'len'
+   75 |     if (fr != FR_OK || bw != (UINT)len) { f_close(&f); return FR_DISK_ERR; }
+      |        ~                           ^~~
+      |                                    )
+../Middlewares/Third_Party/FatFs/src/ff.c:4596:39: warning: implicit declaration of function 'dir_remove' [-Wimplicit-function-declaration]
+ 4596 |                                 res = dir_remove(&dj);                  /* Remove the directory entry */
+      |                                       ^~~~~~~~~~
+../Core/Src/sd_storage.c:75:63: error: 'FR_DISK_ERR' undeclared (first use in this function)
+   75 |     if (fr != FR_OK || bw != (UINT)len) { f_close(&f); return FR_DISK_ERR; }
+      |                                                               ^~~~~~~~~~~
+../Core/Src/sd_storage.c:72:9: warning: unused variable 'len' [-Wunused-variable]
+   72 |     int len = snprintf(buf, sizeof(buf), "%.3f,%u\r\n",
+      |         ^~~
+../Core/Src/sd_storage.c: In function 'SD_LoadMelodyCSV':
+../Core/Src/sd_storage.c:57:1: warning: control reaches end of non-void function [-Wreturn-type]
+   57 | }
+      | ^
+../Core/Src/sd_storage.c: In function 'SD_SaveMelodyCSV':
+../Core/Src/sd_storage.c:79:1: warning: control reaches end of non-void function [-Wreturn-type]
+   79 | }
+      | ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4601:47: warning: implicit declaration of function 'remove_chain' [-Wimplicit-function-declaration]
+ 4601 |                                         res = remove_chain(&dj.obj, dclst, 0);
+      |                                               ^~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4601:63: error: request for member 'obj' in something not a structure or union
+ 4601 |                                         res = remove_chain(&dj.obj, dclst, 0);
+      |                                                               ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4604:57: warning: implicit declaration of function 'sync_fs' [-Wimplicit-function-declaration]
+ 4604 |                                 if (res == FR_OK) res = sync_fs(fs);
+      |                                                         ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: At top level:
+../Middlewares/Third_Party/FatFs/src/ff.c:4620:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4620 | FRESULT f_mkdir (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4621:15: error: unknown type name 'TCHAR'
+ 4621 |         const TCHAR* path               /* Pointer to the directory path */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: In function 'f_mkdir':
+make: *** [Core/Src/subdir.mk:43: Core/Src/sd_storage.o] Error 1
+../Middlewares/Third_Party/FatFs/src/ff.c:4624:9: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4624 |         FRESULT res;
+      |         ^~~~~~~
+      |         DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4625:9: error: unknown type name 'DIR'
+ 4625 |         DIR dj;
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4626:9: error: unknown type name 'FATFS'
+ 4626 |         FATFS *fs;
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4634:39: error: 'FA_WRITE' undeclared (first use in this function)
+ 4634 |         res = find_volume(&path, &fs, FA_WRITE);
+      |                                       ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4635:11: error: request for member 'obj' in something not a structure or union
+ 4635 |         dj.obj.fs = fs;
+      |           ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4636:20: error: 'FR_OK' undeclared (first use in this function)
+ 4636 |         if (res == FR_OK) {
+      |                    ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4639:41: error: 'FR_EXIST' undeclared (first use in this function)
+ 4639 |                 if (res == FR_OK) res = FR_EXIST;               /* Any object with same name is already existing */
+      |                                         ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4640:21: error: '_FS_RPATH' undeclared (first use in this function); did you mean 'FF_FS_RPATH'?
+ 4640 |                 if (_FS_RPATH && res == FR_NO_FILE && (dj.fn[NSFLAG] & NS_DOT)) {
+      |                     ^~~~~~~~~
+      |                     FF_FS_RPATH
+../Middlewares/Third_Party/FatFs/src/ff.c:4640:41: error: 'FR_NO_FILE' undeclared (first use in this function)
+ 4640 |                 if (_FS_RPATH && res == FR_NO_FILE && (dj.fn[NSFLAG] & NS_DOT)) {
+      |                                         ^~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4640:58: error: request for member 'fn' in something not a structure or union
+ 4640 |                 if (_FS_RPATH && res == FR_NO_FILE && (dj.fn[NSFLAG] & NS_DOT)) {
+      |                                                          ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4641:31: error: 'FR_INVALID_NAME' undeclared (first use in this function)
+ 4641 |                         res = FR_INVALID_NAME;
+      |                               ^~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4644:31: warning: implicit declaration of function 'create_chain' [-Wimplicit-function-declaration]
+ 4644 |                         dcl = create_chain(&dj.obj, 0);         /* Allocate a cluster for the new directory table */
+      |                               ^~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4644:47: error: request for member 'obj' in something not a structure or union
+ 4644 |                         dcl = create_chain(&dj.obj, 0);         /* Allocate a cluster for the new directory table */
+      |                                               ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4645:27: error: request for member 'obj' in something not a structure or union
+ 4645 |                         dj.obj.objsize = (DWORD)fs->csize * SS(fs);
+      |                           ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4645:51: error: request for member 'csize' in something not a structure or union
+ 4645 |                         dj.obj.objsize = (DWORD)fs->csize * SS(fs);
+      |                                                   ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:486:24: error: '_MAX_SS' undeclared (first use in this function); did you mean 'FF_MAX_SS'?
+  486 | #define SS(fs)  ((UINT)_MAX_SS) /* Fixed sector size */
+      |                        ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4645:61: note: in expansion of macro 'SS'
+ 4645 |                         dj.obj.objsize = (DWORD)fs->csize * SS(fs);
+      |                                                             ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4647:45: error: 'FR_DENIED' undeclared (first use in this function)
+ 4647 |                         if (dcl == 0) res = FR_DENIED;          /* No space to allocate a new cluster */
+      |                                             ^~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4648:45: error: 'FR_INT_ERR' undeclared (first use in this function)
+ 4648 |                         if (dcl == 1) res = FR_INT_ERR;
+      |                                             ^~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4649:54: error: 'FR_DISK_ERR' undeclared (first use in this function)
+ 4649 |                         if (dcl == 0xFFFFFFFF) res = FR_DISK_ERR;
+      |                                                      ^~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4650:49: warning: implicit declaration of function 'sync_window' [-Wimplicit-function-declaration]
+ 4650 |                         if (res == FR_OK) res = sync_window(fs);        /* Flush FAT */
+      |                                                 ^~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4653:39: warning: implicit declaration of function 'clust2sect' [-Wimplicit-function-declaration]
+ 4653 |                                 dsc = clust2sect(fs, dcl);
+      |                                       ^~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4654:41: error: request for member 'win' in something not a structure or union
+ 4654 |                                 dir = fs->win;
+      |                                         ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4656:38: error: '_FS_EXFAT' undeclared (first use in this function); did you mean 'FF_FS_EXFAT'?
+ 4656 |                                 if (!_FS_EXFAT || fs->fs_type != FS_EXFAT) {
+      |                                      ^~~~~~~~~
+      |                                      FF_FS_EXFAT
+../Middlewares/Third_Party/FatFs/src/ff.c:4656:53: error: request for member 'fs_type' in something not a structure or union
+ 4656 |                                 if (!_FS_EXFAT || fs->fs_type != FS_EXFAT) {
+      |                                                     ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4656:66: error: 'FS_EXFAT' undeclared (first use in this function); did you mean 'FF_FS_EXFAT'?
+ 4656 |                                 if (!_FS_EXFAT || fs->fs_type != FS_EXFAT) {
+      |                                                                  ^~~~~~~~
+      |                                                                  FF_FS_EXFAT
+../Middlewares/Third_Party/FatFs/src/ff.c:4659:57: error: 'AM_DIR' undeclared (first use in this function); did you mean 'MAX_DIR'?
+ 4659 |                                         dir[DIR_Attr] = AM_DIR;
+      |                                                         ^~~~~~
+      |                                                         MAX_DIR
+../Middlewares/Third_Party/FatFs/src/ff.c:4661:41: warning: implicit declaration of function 'st_clust' [-Wimplicit-function-declaration]
+ 4661 |                                         st_clust(fs, dir, dcl);
+      |                                         ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4663:72: error: request for member 'obj' in something not a structure or union
+ 4663 |                                         dir[SZDIRE + 1] = '.'; pcl = dj.obj.sclust;
+      |                                                                        ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4664:47: error: request for member 'fs_type' in something not a structure or union
+ 4664 |                                         if (fs->fs_type == FS_FAT32 && pcl == fs->dirbase) pcl = 0;
+      |                                               ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4664:60: error: 'FS_FAT32' undeclared (first use in this function); did you mean 'MAX_FAT32'?
+ 4664 |                                         if (fs->fs_type == FS_FAT32 && pcl == fs->dirbase) pcl = 0;
+      |                                                            ^~~~~~~~
+      |                                                            MAX_FAT32
+../Middlewares/Third_Party/FatFs/src/ff.c:4664:81: error: request for member 'dirbase' in something not a structure or union
+ 4664 |                                         if (fs->fs_type == FS_FAT32 && pcl == fs->dirbase) pcl = 0;
+      |                                                                                 ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4667:44: error: request for member 'csize' in something not a structure or union
+ 4667 |                                 for (n = fs->csize; n; n--) {   /* Write dot entries and clear following sectors */
+      |                                            ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4668:43: error: request for member 'winsect' in something not a structure or union
+ 4668 |                                         fs->winsect = dsc++;
+      |                                           ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4669:43: error: request for member 'wflag' in something not a structure or union
+ 4669 |                                         fs->wflag = 1;
+      |                                           ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4676:39: warning: implicit declaration of function 'dir_register' [-Wimplicit-function-declaration]
+ 4676 |                                 res = dir_register(&dj);        /* Register the object to the directoy */
+      |                                       ^~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4691:49: error: request for member 'dir' in something not a structure or union
+ 4691 |                                         dir = dj.dir;
+      |                                                 ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4695:43: error: request for member 'wflag' in something not a structure or union
+ 4695 |                                         fs->wflag = 1;
+      |                                           ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4701:49: error: request for member 'obj' in something not a structure or union
+ 4701 |                                 remove_chain(&dj.obj, dcl, 0);          /* Could not register, remove cluster chain */
+      |                                                 ^
+../Middlewares/Third_Party/FatFs/src/ff.c: At top level:
+../Middlewares/Third_Party/FatFs/src/ff.c:4717:1: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4717 | FRESULT f_rename (
+      | ^~~~~~~
+      | DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4718:15: error: unknown type name 'TCHAR'
+ 4718 |         const TCHAR* path_old,  /* Pointer to the object name to be renamed */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4719:15: error: unknown type name 'TCHAR'
+ 4719 |         const TCHAR* path_new   /* Pointer to the new name */
+      |               ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c: In function 'f_rename':
+../Middlewares/Third_Party/FatFs/src/ff.c:4722:9: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+ 4722 |         FRESULT res;
+      |         ^~~~~~~
+      |         DRESULT
+../Middlewares/Third_Party/FatFs/src/ff.c:4723:9: error: unknown type name 'DIR'
+ 4723 |         DIR djo, djn;
+      |         ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4724:9: error: unknown type name 'FATFS'
+ 4724 |         FATFS *fs;
+      |         ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4725:18: error: '_FS_EXFAT' undeclared (first use in this function); did you mean 'FF_FS_EXFAT'?
+ 4725 |         BYTE buf[_FS_EXFAT ? SZDIRE * 2 : 24], *dir;
+      |                  ^~~~~~~~~
+      |                  FF_FS_EXFAT
+../Middlewares/Third_Party/FatFs/src/ff.c:4731:43: error: 'FA_WRITE' undeclared (first use in this function)
+ 4731 |         res = find_volume(&path_old, &fs, FA_WRITE);    /* Get logical drive of the old object */
+      |                                           ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4732:20: error: 'FR_OK' undeclared (first use in this function)
+ 4732 |         if (res == FR_OK) {
+      |                    ^~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4733:20: error: request for member 'obj' in something not a structure or union
+ 4733 |                 djo.obj.fs = fs;
+      |                    ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4736:41: error: request for member 'fn' in something not a structure or union
+ 4736 |                 if (res == FR_OK && (djo.fn[NSFLAG] & (NS_DOT | NS_NONAME))) res = FR_INVALID_NAME;     /* Check validity of name */
+      |                                         ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4736:84: error: 'FR_INVALID_NAME' undeclared (first use in this function)
+ 4736 |                 if (res == FR_OK && (djo.fn[NSFLAG] & (NS_DOT | NS_NONAME))) res = FR_INVALID_NAME;     /* Check validity of name */
+      |                                                                                    ^~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4769:49: error: request for member 'dir' in something not a structure or union
+ 4769 |                                 mem_cpy(buf, djo.dir + DIR_Attr, 21);   /* Save information about the object except name */
+      |                                                 ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4770:61: error: 'DIR' undeclared (first use in this function)
+ 4770 |                                 mem_cpy(&djn, &djo, sizeof (DIR));              /* Duplicate the directory object */
+      |                                                             ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:51: error: request for member 'obj' in something not a structure or union
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                   ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:69: error: request for member 'obj' in something not a structure or union
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                                     ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:87: error: request for member 'dptr' in something not a structure or union
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                                                       ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:99: error: request for member 'dptr' in something not a structure or union
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                                                                   ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:108: error: 'FR_NO_FILE' undeclared (first use in this function)
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                                                                            ^~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4773:121: error: 'FR_EXIST' undeclared (first use in this function)
+ 4773 |                                         res = (djn.obj.sclust == djo.obj.sclust && djn.dptr == djo.dptr) ? FR_NO_FILE : FR_EXIST;
+      |                                                                                                                         ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4778:58: error: request for member 'dir' in something not a structure or union
+ 4778 |                                                 dir = djn.dir;                                  /* Copy information about object except name */
+      |                                                          ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4780:74: error: 'AM_ARC' undeclared (first use in this function)
+ 4780 |                                                 dir[DIR_Attr] = buf[0] | AM_ARC;
+      |                                                                          ^~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4781:51: error: request for member 'wflag' in something not a structure or union
+ 4781 |                                                 fs->wflag = 1;
+      |                                                   ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4782:70: error: 'AM_DIR' undeclared (first use in this function); did you mean 'MAX_DIR'?
+ 4782 |                                                 if ((dir[DIR_Attr] & AM_DIR) && djo.obj.sclust != djn.obj.sclust) {     /* Update .. entry in the sub-directory if needed */
+      |                                                                      ^~~~~~
+      |                                                                      MAX_DIR
+../Middlewares/Third_Party/FatFs/src/ff.c:4782:84: error: request for member 'obj' in something not a structure or union
+ 4782 |                                                 if ((dir[DIR_Attr] & AM_DIR) && djo.obj.sclust != djn.obj.sclust) {     /* Update .. entry in the sub-directory if needed */
+      |                                                                                    ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4782:102: error: request for member 'obj' in something not a structure or union
+ 4782 |                                                 if ((dir[DIR_Attr] & AM_DIR) && djo.obj.sclust != djn.obj.sclust) {     /* Update .. entry in the sub-directory if needed */
+      |                                                                                                      ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4785:71: error: 'FR_INT_ERR' undeclared (first use in this function)
+ 4785 |                                                                 res = FR_INT_ERR;
+      |                                                                       ^~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4788:71: warning: implicit declaration of function 'move_window' [-Wimplicit-function-declaration]
+ 4788 |                                                                 res = move_window(fs, dw);
+      |                                                                       ^~~~~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:4789:73: error: request for member 'win' in something not a structure or union
+ 4789 |                                                                 dir = fs->win + SZDIRE * 1;     /* Ptr to .. entry */
+      |                                                                         ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4791:94: error: request for member 'obj' in something not a structure or union
+ 4791 |                                                                         st_clust(fs, dir, djn.obj.sclust);
+      |                                                                                              ^
+../Middlewares/Third_Party/FatFs/src/ff.c:4792:75: error: request for member 'wflag' in something not a structure or union
+ 4792 |                                                                         fs->wflag = 1;
+      |                                                                           ^~
+../Middlewares/Third_Party/FatFs/src/ff.c:4725:14: warning: unused variable 'buf' [-Wunused-variable]
+ 4725 |         BYTE buf[_FS_EXFAT ? SZDIRE * 2 : 24], *dir;
+      |              ^~~
+../Middlewares/Third_Party/FatFs/src/ff.c: At top level:
+../Middlewares/Third_Party/FatFs/src/ff.c:729:5: warning: 'chk_chr' defined but not used [-Wunused-function]
+  729 | int chk_chr (const char* str, int chr) {        /* NZ:contained, ZR:not contained */
+      |     ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:716:5: warning: 'mem_cmp' defined but not used [-Wunused-function]
+  716 | int mem_cmp (const void* dst, const void* src, UINT cnt) {      /* ZR:same, NZ:different */
+      |     ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:654:6: warning: 'st_word' defined but not used [-Wunused-function]
+  654 | void st_word (BYTE* ptr, WORD val)      /* Store a 2-byte word in little-endian */
+      |      ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:623:7: warning: 'ld_dword' defined but not used [-Wunused-function]
+  623 | DWORD ld_dword (const BYTE* ptr)        /* Load a 4-byte little-endian word */
+      |       ^~~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:613:6: warning: 'ld_word' defined but not used [-Wunused-function]
+  613 | WORD ld_word (const BYTE* ptr)  /*       Load a 2-byte little-endian word */
+      |      ^~~~~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:534:13: warning: 'Fsid' defined but not used [-Wunused-variable]
+  534 | static WORD Fsid;                               /* File system mount ID */
+      |             ^~~~
+../Middlewares/Third_Party/FatFs/src/ff.c:533:15: warning: 'FatFs' defined but not used [-Wunused-variable]
+  533 | static FATFS *FatFs[_VOLUMES];  /* Pointer to the file system objects (logical drives) */
+      |               ^~~~~
+make: *** [Middlewares/Third_Party/FatFs/src/subdir.mk:25: Middlewares/Third_Party/FatFs/src/ff.o] Error 1
+../FATFS/Target/user_diskio.c:3:10: fatal error: spi.h: No such file or directory
+    3 | #include "spi.h"
+      |          ^~~~~~~
+compilation terminated.
+make: *** [FATFS/Target/subdir.mk:19: FATFS/Target/user_diskio.o] Error 1
+In file included from ../Core/Inc/fatfs.h:19,
+                 from ../Core/Src/main.c:20:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:57:42: error: '_VOLUMES' undeclared here (not in a function); did you mean 'FF_VOLUMES'?
+   57 |   uint8_t                 is_initialized[_VOLUMES];
+      |                                          ^~~~~~~~
+      |                                          FF_VOLUMES
+../Core/Inc/fatfs.h:24:8: error: unknown type name 'FATFS'
+   24 | extern FATFS USERFatFS;     /* File system object for USER logical drive */
+      |        ^~~~~
+../Core/Inc/fatfs.h:25:8: error: unknown type name 'FIL'
+   25 | extern FIL USERFile;        /* File object for USER */
+      |        ^~~
+../Core/Src/main.c:62:8: error: unknown type name 'FATFS'
+   62 | static FATFS   s_fs;      // objeto de sistema de archivos
+      |        ^~~~~
+../Core/Src/main.c: In function 'SD_Mount':
+../Core/Src/main.c:156:3: error: unknown type name 'FRESULT'; did you mean 'DRESULT'?
+  156 |   FRESULT fr = f_mount(&s_fs, "", 1);  // montar en unidad por defecto
+      |   ^~~~~~~
+      |   DRESULT
+../Core/Src/main.c:156:16: warning: implicit declaration of function 'f_mount' [-Wimplicit-function-declaration]
+  156 |   FRESULT fr = f_mount(&s_fs, "", 1);  // montar en unidad por defecto
+      |                ^~~~~~~
+../Core/Src/main.c:157:23: error: 'FR_OK' undeclared (first use in this function)
+  157 |   sd_mounted = (fr == FR_OK);
+      |                       ^~~~~
+../Core/Src/main.c:157:23: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:136:13: warning: 'Audio_Stop' defined but not used [-Wunused-function]
+  136 | static void Audio_Stop(void) {
+      |             ^~~~~~~~~~
+make: *** [Core/Src/subdir.mk:43: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+00:18:34 Build Failed. 230 errors, 34 warnings. (took 1s.64ms)
+

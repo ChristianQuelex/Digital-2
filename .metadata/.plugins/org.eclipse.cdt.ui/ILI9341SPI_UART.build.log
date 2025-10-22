@@ -1,0 +1,10 @@
+01:15:59 **** Incremental Build of configuration Debug for project ILI9341SPI_UART ****
+make -j12 all 
+arm-none-eabi-size  ILI9341SPI_UART.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 482240	     16	  78696	 560952	  88f38	ILI9341SPI_UART.elf
+Finished building: default.size.stdout
+ 
+
+01:15:59 Build Finished. 0 errors, 0 warnings. (took 243ms)
+

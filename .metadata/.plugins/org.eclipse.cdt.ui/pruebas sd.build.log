@@ -1,0 +1,17 @@
+12:01:42 **** Incremental Build of configuration Debug for project pruebas sd ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "pruebas sd.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Chris Q\Downloads\Laboratorio 7 - SD\pruebas sd\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="pruebas sd.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: pruebas sd.elf
+ 
+arm-none-eabi-size  pruebas\ sd.elf 
+arm-none-eabi-objdump -h -S pruebas\ sd.elf  > "pruebas sd.list"
+   text	   data	    bss	    dec	    hex	filename
+  35156	    128	  11048	  46332	   b4fc	pruebas sd.elf
+Finished building: default.size.stdout
+ 
+Finished building: pruebas sd.list
+ 
+
+12:01:43 Build Finished. 0 errors, 0 warnings. (took 803ms)
+

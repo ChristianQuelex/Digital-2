@@ -1,0 +1,57 @@
+#ifndef PITCHES_H
+#define PITCHES_H
+
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* ===== Notas comunes ===== */
+#define NOTE_C2   65.41f
+#define NOTE_CS2  69.30f
+#define NOTE_D2   73.42f
+#define NOTE_DS2  77.78f
+#define NOTE_E2   82.41f
+#define NOTE_F2   87.31f
+#define NOTE_FS2  92.50f
+#define NOTE_G2   98.00f
+#define NOTE_GS2  103.83f
+#define NOTE_A2   110.00f
+#define NOTE_AS2  116.54f
+#define NOTE_B2   123.47f
+
+#define NOTE_C3   130.81f
+#define NOTE_CS3  138.59f
+#define NOTE_D3   146.83f
+#define NOTE_DS3  155.56f
+#define NOTE_E3   164.81f
+#define NOTE_F3   174.61f
+#define NOTE_FS3  185.00f
+#define NOTE_G3   196.00f
+#define NOTE_GS3  207.65f
+#define NOTE_A3   220.00f
+#define NOTE_AS3  233.08f
+#define NOTE_B3   246.94f
+
+#define NOTE_A4   440.00f
+#define NOTE_AS4  466.16f
+#define NOTE_B4   493.88f
+#define NOTE_A5   880.00f
+#define NOTE_B5   987.77f
+
+#define REST      0.0f
+
+typedef struct {
+  float    freq_hz;   // frecuencia en Hz; REST = 0.0f
+  uint8_t  dur_beats; // duración relativa (4 = negra, 2 = corchea, 8 = blanca, etc.)
+} Note;
+
+/* Declaración de la melodía principal */
+extern const Note INTRO_JUEGO[];
+extern const unsigned int INTRO_JUEGO_LEN;
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* PITCHES_H */

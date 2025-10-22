@@ -1,0 +1,160 @@
+#include "pitches.h"
+
+/* ============================================================
+ * Selector de cancion por defecto (exportada como melody[])
+ * Cambia esta linea a la cancion que quieras y recompila
+ * ============================================================ */
+#define SELECT_SONG   SONG_HARRY_POTTER
+/* Opciones:
+   SONG_HARRY_POTTER
+   SONG_IMPERIAL_MARCH
+   SONG_HAPPY_BIRTHDAY
+   SONG_MARIO_THEME
+*/
+
+/* =============================================================================
+ *  Melodias en formato paralelo:
+ *     - melodyX[]: notas NOTE_* (Hz) o NOTE_REST
+ *     - durationsX[]: duracion por nota en ms
+ *  Nota: Son versiones resumidas para prueba rapida.
+ *        Puedes extenderlas sin cambiar la estructura.
+ * ============================================================================= */
+
+/* -------------------- Harry Potter (tema) -------------------- */
+static const uint32_t melody_hp[] = {
+  NOTE_B4, NOTE_E5, NOTE_G5, NOTE_FS5, NOTE_E5, NOTE_B5, NOTE_A5, NOTE_FS5,
+  NOTE_E5, NOTE_G5, NOTE_FS5, NOTE_DS5, NOTE_F5, NOTE_B4,
+  NOTE_B4, NOTE_E5, NOTE_G5, NOTE_FS5, NOTE_E5, NOTE_B5, NOTE_D6, NOTE_CS6,
+  NOTE_C6, NOTE_GS5, NOTE_C6, NOTE_B5, NOTE_AS5, NOTE_AS4, NOTE_G5, NOTE_E5
+};
+static const uint16_t durations_hp[] = {
+  333, 500, 166, 333, 666, 333, 1000, 1000,
+  500, 166, 333, 666, 333, 1666,
+  333, 500, 166, 333, 666, 333, 666, 333,
+  666, 333, 500, 166, 333, 666, 333, 1666
+};
+static const uint32_t len_hp = sizeof(melody_hp)/sizeof(melody_hp[0]);
+
+/* -------------------- Imperial March (Star Wars) -------------------- */
+static const uint32_t melody_im[] = {
+  NOTE_A4, NOTE_A4, NOTE_A4, NOTE_F4, NOTE_C5, NOTE_A4, NOTE_F4, NOTE_C5, NOTE_A4,
+  NOTE_E5, NOTE_E5, NOTE_E5, NOTE_F5, NOTE_C5, NOTE_GS4, NOTE_F4, NOTE_C5, NOTE_A4
+};
+static const uint16_t durations_im[] = {
+  500,500,500,350,150,500,350,150,650,
+  500,500,500,350,150,500,350,150,650
+};
+static const uint32_t len_im = sizeof(melody_im)/sizeof(melody_im[0]);
+
+/* -------------------- Happy Birthday -------------------- */
+static const uint32_t melody_hb[] = {
+  NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, NOTE_C4, NOTE_B3,
+  NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, NOTE_D4, NOTE_C4,
+  NOTE_G3, NOTE_G3, NOTE_G4, NOTE_E4, NOTE_C4, NOTE_B3, NOTE_A3,
+  NOTE_F4, NOTE_F4, NOTE_E4, NOTE_C4, NOTE_D4, NOTE_C4
+};
+static const uint16_t durations_hb[] = {
+  200,200,500,500,500,1000,
+  200,200,500,500,500,1000,
+  200,200,500,500,500,500,750,
+  200,200,500,500,500,1000
+};
+static const uint32_t len_hb = sizeof(melody_hb)/sizeof(melody_hb[0]);
+
+/* -------------------- Mario (intro corta) -------------------- */
+static const uint32_t melody_ma[] = {
+  NOTE_E7, NOTE_E7, NOTE_REST, NOTE_E7, NOTE_REST, NOTE_C7, NOTE_E7, NOTE_REST,
+  NOTE_G7, NOTE_REST, NOTE_G6, NOTE_REST,
+  NOTE_C7, NOTE_REST, NOTE_G6, NOTE_REST, NOTE_E6, NOTE_REST,
+  NOTE_A6, NOTE_REST, NOTE_B6, NOTE_REST, NOTE_AS6, NOTE_A6,
+  NOTE_G6, NOTE_E7, NOTE_G7, NOTE_A7
+};
+static const uint16_t durations_ma[] = {
+  120,120,120,120,120,120,120,120,
+  120,240,120,360,
+  120,240,120,240,120,240,
+  120,120,120,120,120,120,
+  90,90,90,120
+};
+static const uint32_t len_ma = sizeof(melody_ma)/sizeof(melody_ma[0]);
+
+/* =============================================================================
+ *  Export por defecto segun SELECT_SONG
+ * ============================================================================= */
+#if (SELECT_SONG == SONG_HARRY_POTTER)
+const uint32_t MELODY_LEN = (uint32_t)len_hp;
+const uint32_t melody[]   = { #define X(i) melody_hp[i]
+  #undef X
+};
+const uint16_t durations[] = { /* se define abajo via alias */ };
+/* Truco: reexportar sin copiar memoria usando alias de seccion no es portable,
+   asi que definimos como referencias directas: */
+const uint32_t * __mel_ptr_hp = melody_hp;
+const uint16_t * __dur_ptr_hp = durations_hp;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-braces"
+const uint32_t melody[sizeof(melody_hp)/sizeof(melody_hp[0])]   = { 0 };
+const uint16_t durations[sizeof(durations_hp)/sizeof(durations_hp[0])] = { 0 };
+#pragma GCC diagnostic pop
+#elif (SELECT_SONG == SONG_IMPERIAL_MARCH)
+const uint32_t MELODY_LEN = (uint32_t)len_im;
+const uint32_t * __mel_ptr_hp = melody_im;
+const uint16_t * __dur_ptr_hp = durations_im;
+const uint32_t melody[sizeof(melody_im)/sizeof(melody_im[0])]   = { 0 };
+const uint16_t durations[sizeof(durations_im)/sizeof(durations_im[0])] = { 0 };
+#elif (SELECT_SONG == SONG_HAPPY_BIRTHDAY)
+const uint32_t MELODY_LEN = (uint32_t)len_hb;
+const uint32_t * __mel_ptr_hp = melody_hb;
+const uint16_t * __dur_ptr_hp = durations_hb;
+const uint32_t melody[sizeof(melody_hb)/sizeof(melody_hb[0])]   = { 0 };
+const uint16_t durations[sizeof(durations_hb)/sizeof(durations_hb[0])] = { 0 };
+#elif (SELECT_SONG == SONG_MARIO_THEME)
+const uint32_t MELODY_LEN = (uint32_t)len_ma;
+const uint32_t * __mel_ptr_hp = melody_ma;
+const uint16_t * __dur_ptr_hp = durations_ma;
+const uint32_t melody[sizeof(melody_ma)/sizeof(melody_ma[0])]   = { 0 };
+const uint16_t durations[sizeof(durations_ma)/sizeof(durations_ma[0])] = { 0 };
+#else
+#error "SELECT_SONG invalido"
+#endif
+
+/* =====================================================================
+ * Nota importante:
+ *   Los arrays melody[] y durations[] arriba fueron declarados con ceros
+ *   para cumplir con el "extern" del main, pero queremos que apunten a
+ *   la melodia elegida sin duplicar memoria. Como C puro no permite alias
+ *   de arrays estaticos de forma portable, una solucion sencilla es:
+ *     - Reemplazar en tu main.c el for por acceso via punteros:
+ *
+ *       extern const uint32_t MELODY_LEN;
+ *       extern const uint32_t * __mel_ptr_hp;
+ *       extern const uint16_t * __dur_ptr_hp;
+ *       for (uint32_t i=0; i<MELODY_LEN; ++i) {
+ *         uint32_t note = __mel_ptr_hp[i];
+ *         uint16_t dur  = __dur_ptr_hp[i];
+ *         ...
+ *       }
+ *
+ *   Alternativa rapida si quieres mantener nombres:
+ *     - Quitar los '= {0}' y copiar con un pequeño init en pitches_init().
+ * ===================================================================== */
+
+/* Si prefieres mantener exactamente 'melody[]' y 'durations[]' como datos reales,
+ * descomenta esta funcion y llamala una vez antes de reproducir:
+ *
+ *   void pitches_init(void);
+ *   En main.c despues de MX_*: pitches_init();
+ */
+
+void pitches_init(void)
+{
+#if (SELECT_SONG == SONG_HARRY_POTTER)
+  for (uint32_t i=0;i<len_hp;++i){ ((uint32_t*)melody)[i]=melody_hp[i]; ((uint16_t*)durations)[i]=durations_hp[i]; }
+#elif (SELECT_SONG == SONG_IMPERIAL_MARCH)
+  for (uint32_t i=0;i<len_im;++i){ ((uint32_t*)melody)[i]=melody_im[i]; ((uint16_t*)durations)[i]=durations_im[i]; }
+#elif (SELECT_SONG == SONG_HAPPY_BIRTHDAY)
+  for (uint32_t i=0;i<len_hb;++i){ ((uint32_t*)melody)[i]=melody_hb[i]; ((uint16_t*)durations)[i]=durations_hb[i]; }
+#elif (SELECT_SONG == SONG_MARIO_THEME)
+  for (uint32_t i=0;i<len_ma;++i){ ((uint32_t*)melody)[i]=melody_ma[i]; ((uint16_t*)durations)[i]=durations_ma[i]; }
+#endif
+}

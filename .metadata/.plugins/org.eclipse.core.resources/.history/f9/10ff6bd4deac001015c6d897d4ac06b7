@@ -1,0 +1,10 @@
+#include "pitches.h"
+
+/* Happy Birthday (arreglo simple y probado) */
+const Note HAPPY_BIRTHDAY[] = {
+  {NOTE_G4,4}, {NOTE_G4,4}, {NOTE_A4,8}, {NOTE_G4,8}, {NOTE_C5,8}, {NOTE_B4,16},
+  {NOTE_G4,4}, {NOTE_G4,4}, {NOTE_A4,8}, {NOTE_G4,8}, {NOTE_D5,8}, {NOTE_C5,16},
+  {NOTE_G4,4}, {NOTE_G4,4}, {NOTE_G5,8}, {NOTE_E5,8}, {NOTE_C5,8}, {NOTE_B4,8}, {NOTE_A4,12},
+  {NOTE_F6,4}, {NOTE_F6,4}, {NOTE_E5,8}, {NOTE_C5,8}, {NOTE_D5,8}, {NOTE_C5,16},
+};
+const unsigned int HAPPY_BIRTHDAY_LEN = sizeof(HAPPY_BIRTHDAY)/sizeof(HAPPY_BIRTHDAY[0]);

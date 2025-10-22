@@ -1,0 +1,10 @@
+02:27:05 **** Incremental Build of configuration Debug for project Audio_SD con UART ****
+make -j12 all 
+arm-none-eabi-size  Audio_SD\ con\ UART.elf 
+   text	   data	    bss	    dec	    hex	filename
+  52228	    492	   9196	  61916	   f1dc	Audio_SD con UART.elf
+Finished building: default.size.stdout
+ 
+
+02:27:06 Build Finished. 0 errors, 0 warnings. (took 305ms)
+

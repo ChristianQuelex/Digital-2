@@ -1,0 +1,217 @@
+/* DAC audio by TIM6+DMA (wavetable) + simple melody player (TRON) */
+
+#include "main.h"
+#include <math.h>
+#include "pitches.h"
+
+/* ===== Peripherals ===== */
+DAC_HandleTypeDef  hdac;
+DMA_HandleTypeDef  hdma_dac1;
+TIM_HandleTypeDef  htim6;
+
+/* ===== Audio Engine Config ===== */
+#define AUDIO_FS_HZ        20000U
+#define WT_SIZE            256U
+#define AUDIO_BUF_SAMPLES  512U
+#define DAC_MAX_12B        4095U
+#define DAC_OFFSET_12B     2048U
+
+static uint16_t audio_buf[AUDIO_BUF_SAMPLES];
+static uint16_t wavetable[WT_SIZE];
+static uint32_t phase_q16     = 0;
+static uint32_t phase_inc_q16 = 0;
+static uint8_t  audio_running = 0;
+
+/* Prototipos */
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_DAC_Init(void);
+static void MX_TIM6_Init(void);
+
+/* ===== Helpers ===== */
+static void WT_InitSine(void) {
+  for (uint32_t i = 0; i < WT_SIZE; ++i) {
+    float s = sinf(2.0f * 3.14159265359f * (float)i / (float)WT_SIZE);
+    wavetable[i] = (uint16_t)((s * 0.49f + 0.5f) * (float)DAC_MAX_12B);
+  }
+}
+
+static inline void Audio_SetFrequency(float freq_hz) {
+  float step = (freq_hz * (float)WT_SIZE) / (float)AUDIO_FS_HZ;    // ciclos de tabla por muestra
+  phase_inc_q16 = (uint32_t)(step * 65536.0f);                      // Q16.16
+}
+
+static void FillHalf(uint32_t offset, uint32_t len) {
+  if (phase_inc_q16 == 0) {
+    for (uint32_t i = 0; i < len; ++i) audio_buf[offset + i] = DAC_OFFSET_12B;
+    return;
+  }
+  for (uint32_t i = 0; i < len; ++i) {
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE - 1);
+    audio_buf[offset + i] = wavetable[idx];
+    phase_q16 += phase_inc_q16;
+  }
+}
+
+static void Audio_Start(void) {
+  if (audio_running) return;
+
+  WT_InitSine();
+  phase_q16 = 0;
+  for (uint32_t i = 0; i < AUDIO_BUF_SAMPLES; ++i) {
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE - 1);
+    audio_buf[i] = wavetable[idx];
+    phase_q16 += phase_inc_q16;
+  }
+
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)audio_buf, AUDIO_BUF_SAMPLES, DAC_ALIGN_12B_R);
+  HAL_TIM_Base_Start(&htim6);
+  audio_running = 1;
+}
+
+/* ===== Callbacks de DMA (usan FillHalf, eliminan el warning) ===== */
+void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* hdacx) {
+  (void)hdacx;
+  FillHalf(0, AUDIO_BUF_SAMPLES/2);
+}
+void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdacx) {
+  (void)hdacx;
+  FillHalf(AUDIO_BUF_SAMPLES/2, AUDIO_BUF_SAMPLES/2);
+}
+
+/* ===== Player ===== */
+static void PlayNote_Block(float freq_hz, uint32_t dur_ms) {
+  Audio_SetFrequency(freq_hz);
+  if (!audio_running) Audio_Start();
+  HAL_Delay(dur_ms);
+}
+static void PlayRest_Block(uint32_t dur_ms) {
+  Audio_SetFrequency(0.0f);
+  HAL_Delay(dur_ms);
+}
+
+/* usa Note (no NoteRef) */
+static void PlayMelody(const Note* mel, uint32_t count, uint32_t tempo_ms_per_beat) {
+  for (uint32_t i = 0; i < count; ++i) {
+    float    f   = mel[i].freq_hz;
+    uint32_t dur = (mel[i].dur_beats * tempo_ms_per_beat) / 4; // negra=4
+    if (f > 0.0f) PlayNote_Block(f, dur);
+    else          PlayRest_Block(dur);
+    Audio_SetFrequency(0.0f);
+    HAL_Delay(dur/8);
+  }
+}
+
+/* ================== main() ================== */
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_DAC_Init();
+  MX_DMA_Init();
+  MX_TIM6_Init();
+
+  /* Prueba 1 kHz y luego TRON */
+  Audio_SetFrequency(1000.0f);
+  Audio_Start();
+  HAL_Delay(2000);
+  Audio_SetFrequency(0.0f);
+  HAL_Delay(150);
+
+  extern const Note TRON_PIANO[];                 // <-- tipo correcto
+  extern const unsigned int TRON_PIANO_LEN;       // <-- idem
+  const uint32_t tempo_ms = 255;                  // recomendado para tu arreglo
+  PlayMelody(TRON_PIANO, TRON_PIANO_LEN, tempo_ms);
+
+  while (1) {
+    HAL_Delay(1000);
+  }
+}
+
+/* ================== Init ================== */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 16;
+  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;   // 84 MHz
+  RCC_OscInitStruct.PLL.PLLQ = 7;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) while(1){}
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;   // TIM6 = 84 MHz
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) while(1){}
+}
+
+static void MX_DAC_Init(void)
+{
+  DAC_ChannelConfTypeDef sConfig = {0};
+  hdac.Instance = DAC;
+  HAL_DAC_Init(&hdac);
+  sConfig.DAC_Trigger      = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1);
+}
+
+static void MX_TIM6_Init(void)
+{
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  htim6.Instance = TIM6;
+  // 84MHz / (PSC+1) / (ARR+1) = 20kHz -> PSC=83 (1MHz), ARR=49 (20k)
+  htim6.Init.Prescaler         = 83;
+  htim6.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  htim6.Init.Period            = 49;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  HAL_TIM_Base_Init(&htim6);
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_DISABLE;
+  HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig);
+}
+
+static void MX_DMA_Init(void)
+{
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  hdma_dac1.Instance                 = DMA1_Stream5;
+  hdma_dac1.Init.Channel             = DMA_CHANNEL_7;
+  hdma_dac1.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+  hdma_dac1.Init.PeriphInc           = DMA_PINC_DISABLE;
+  hdma_dac1.Init.MemInc              = DMA_MINC_ENABLE;
+  hdma_dac1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+  hdma_dac1.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;
+  hdma_dac1.Init.Mode                = DMA_CIRCULAR;
+  hdma_dac1.Init.Priority            = DMA_PRIORITY_HIGH;
+  hdma_dac1.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+  HAL_DMA_Init(&hdma_dac1);
+  __HAL_LINKDMA(&hdac, DMA_Handle1, hdma_dac1);
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+}
+
+static void MX_GPIO_Init(void)
+{
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  // PA4 analógico (DAC_OUT1)
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitStruct.Pin  = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}

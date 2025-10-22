@@ -1,0 +1,246 @@
+/* main.c — Sintetizador por notas + Reproductor PCM integrado (STM32F446) */
+#include "main.h"
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include "pitches.h"          // tus notas (por si quieres seguir usándolas)
+#include "melody_pcm_u8.h"    // TU audio: 10 s, 8-bit @ 22050 Hz
+
+/* ====== Config ====== */
+#define WT_SIZE            256u
+#define AUDIO_BUF_SAMPLES  1024u        // DMA buffer (2 mitades)
+#define DAC_MAX_12B        4095u
+#define DAC_OFFSET_12B     2048u
+
+/* Elegir modo: 0 = Sintetizador por notas (como antes), 1 = Reproducir PCM */
+#define MODE_PCM           1
+
+/* ====== Handles ====== */
+DAC_HandleTypeDef  hdac;
+DMA_HandleTypeDef  hdma_dac1;   // ¡Debe existir global!
+TIM_HandleTypeDef  htim6;
+
+/* ====== Buffers y estado ====== */
+static uint16_t audio_buf[AUDIO_BUF_SAMPLES];   // 12-bit para el DAC
+static uint16_t wavetable[WT_SIZE];             // para sintetizador
+
+/* Sintetizador (como antes) */
+static uint32_t phase_q16 = 0;
+static uint32_t phase_inc_q16 = 0;
+static float    current_freq_hz = 0.0f;
+
+/* PCM player */
+static volatile uint32_t pcm8_idx = 0;          // índice en PCM8
+static uint16_t u8_to_u12[256];                 // LUT 0..255 -> 0..4095
+
+/* ====== Protos de init ====== */
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_DAC_Init(void);
+static void MX_TIM6_Init(void);
+
+/* ====== Helpers sintetizador ====== */
+static void WT_InitSine(void) {
+  for (uint32_t i = 0; i < WT_SIZE; ++i) {
+    float s = sinf(2.0f * 3.14159265359f * (float)i / (float)WT_SIZE);
+    wavetable[i] = (uint16_t)((s * 0.49f + 0.5f) * DAC_MAX_12B);
+  }
+}
+static inline void Audio_SetFrequency(float freq_hz) {
+  current_freq_hz = freq_hz;
+  float step = (freq_hz * (float)WT_SIZE) / 21875.0f;   // Fs ≈ 21.875 k
+  phase_inc_q16 = (step <= 0.0f) ? 0 : (uint32_t)(step * 65536.0f);
+}
+
+/* ====== Rellenos de buffer ====== */
+static void FillHalf_Synth(uint32_t off, uint32_t len) {
+  if (phase_inc_q16 == 0) {
+    for (uint32_t i=0;i<len;i++) audio_buf[off+i] = DAC_OFFSET_12B;
+    return;
+  }
+  for (uint32_t i=0;i<len;i++) {
+    uint32_t idx = (phase_q16 >> 16) & (WT_SIZE - 1);
+    audio_buf[off+i] = wavetable[idx];
+    phase_q16 += phase_inc_q16;
+  }
+}
+
+static void FillHalf_PCM(uint32_t off, uint32_t len) {
+  for (uint32_t i=0;i<len;i++) {
+    uint8_t s8 = PCM8_DATA[pcm8_idx++];
+    if (pcm8_idx >= PCM8_NUM_SAMPLES) pcm8_idx = 0; // loop
+    audio_buf[off+i] = u8_to_u12[s8];
+  }
+}
+
+/* ====== Callbacks DMA del DAC ====== */
+void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* _) {
+  (void)_;
+#if MODE_PCM
+  FillHalf_PCM(0, AUDIO_BUF_SAMPLES/2);
+#else
+  FillHalf_Synth(0, AUDIO_BUF_SAMPLES/2);
+#endif
+}
+void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* _) {
+  (void)_;
+#if MODE_PCM
+  FillHalf_PCM(AUDIO_BUF_SAMPLES/2, AUDIO_BUF_SAMPLES/2);
+#else
+  FillHalf_Synth(AUDIO_BUF_SAMPLES/2, AUDIO_BUF_SAMPLES/2);
+#endif
+}
+
+/* ====== Player por notas (opcional, como antes) ====== */
+static void PlayNoteHz_Block(float f, uint32_t dur_ms) {
+  Audio_SetFrequency(f);
+  HAL_Delay(dur_ms);
+}
+static void PlayRest_Block(uint32_t dur_ms) {
+  Audio_SetFrequency(0.0f);
+  HAL_Delay(dur_ms);
+}
+static void PlayMelody(const Note* mel, uint32_t n, uint32_t tempo_ms_per_beat) {
+  for (uint32_t i = 0; i < n; ++i) {
+    float    f   = mel[i].freq_hz;
+    uint32_t dur = (mel[i].dur_beats * tempo_ms_per_beat) / 4;
+    if (f > 0.0f) PlayNoteHz_Block(f, dur); else PlayRest_Block(dur);
+    Audio_SetFrequency(0.0f);
+    HAL_Delay(dur/8);
+  }
+}
+
+/* ====== Arranque audio ====== */
+static void Audio_Start(void) {
+  /* Precalcular tabla u8->u12 (solo si PCM) */
+#if MODE_PCM
+  for (int i=0;i<256;i++) u8_to_u12[i] = (uint16_t)((i * 4095 + 127) / 255);
+  pcm8_idx = 0;
+#else
+  WT_InitSine();
+  phase_q16 = 0;
+#endif
+
+  /* Prellenar todo el buffer (evita clic inicial) */
+#if MODE_PCM
+  FillHalf_PCM(0, AUDIO_BUF_SAMPLES);
+#else
+  FillHalf_Synth(0, AUDIO_BUF_SAMPLES);
+#endif
+
+  /* Arrancar DAC + DMA + TIM6 */
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1,
+                    (uint32_t*)audio_buf,
+                    AUDIO_BUF_SAMPLES,
+                    DAC_ALIGN_12B_R);
+  HAL_TIM_Base_Start(&htim6);
+}
+
+/* ================== main ================== */
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_DAC_Init();
+  MX_TIM6_Init();
+
+  /* Inicia audio */
+#if MODE_PCM
+  Audio_Start();           // Reproduce tu audio PCM en loop
+#else
+  Audio_SetFrequency(0.0f);
+  Audio_Start();
+  const uint32_t tempo_ms = 500;
+  PlayMelody(HAPPY_BIRTHDAY, HAPPY_BIRTHDAY_LEN, tempo_ms);  // demo
+#endif
+
+  while (1) {
+    HAL_Delay(1000);
+  }
+}
+
+/* ================== Inits ================== */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState       = RCC_HSE_ON;
+  RCC_OscInitStruct.HSIState       = RCC_HSI_OFF;
+  RCC_OscInitStruct.PLL.PLLState   = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource  = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM       = 8;
+  RCC_OscInitStruct.PLL.PLLN       = 336;
+  RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV4;   // 84 MHz
+  RCC_OscInitStruct.PLL.PLLQ       = 7;
+  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+  RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK|
+                                     RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;   // PCLK1=42 -> TIM6=84 MHz (x2)
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
+}
+
+static void MX_TIM6_Init(void)
+{
+  /* Fs ≈ 21.875 kHz (cercano a 22.05 kHz):
+     Fupdate = 84e6/(PSC+1)/(ARR+1)
+     PSC=79 -> 1.05 MHz; ARR=47 -> 1.05e6/48 ≈ 21875 Hz
+  */
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler         = 79;
+  htim6.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  htim6.Init.Period            = 47;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  HAL_TIM_Base_Init(&htim6);
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_DISABLE;
+  HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig);
+}
+
+static void MX_DAC_Init(void)
+{
+  DAC_ChannelConfTypeDef sConfig = {0};
+  __HAL_RCC_DAC_CLK_ENABLE();
+
+  hdac.Instance = DAC;
+  HAL_DAC_Init(&hdac);
+
+  sConfig.DAC_Trigger      = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1);
+}
+
+static void MX_DMA_Init(void)
+{
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* Prioriza DMA del DAC (por si tienes otras IRQ) */
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+}
+
+static void MX_GPIO_Init(void)
+{
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+}
+
+/* Error handler básico */
+void Error_Handler(void){ __disable_irq(); while(1){} }
